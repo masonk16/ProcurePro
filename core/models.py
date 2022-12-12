@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 class Contractor(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
-    contractor_id = models.AutoField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=200, null=True)
     company_address = models.CharField(max_length=200, null=True)
     industry = models.CharField(max_length=200, null=True)
@@ -18,7 +18,7 @@ class Contractor(models.Model):
 
 class Supplier(models.Model):
     # supplier = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
-    supplier_id = models.AutoField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=200, null=True)
     company_address = models.CharField(max_length=200, null=True)
     industry = models.CharField(max_length=200, null=True)
@@ -28,3 +28,23 @@ class Supplier(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Tenders(models.Model):
+    id = models.AutoField(primary_key=True)
+    category = models.CharField(max_length=200, null=True)
+    description = models.TextField(max_length=200, null=True)
+    budget = models.IntegerField(max_length=20, null=True)
+    opening_date = models.DateTimeField(max_length=50, null=False)
+    deadline = models.DateTimeField(max_length=50, null=False)
+    contractor_id = models.ForeignKey(Contractor, on_delete=models.CASCADE)
+
+class Bids(models.Model):
+    id = models.AutoField(primary_key=True)
+    description = models.TextField(max_length=200, null=True)
+    bid_price = models.IntegerField(max_length=20, null=True)
+    submission_date = models.DateTimeField(max_length=50, null=False)
+    tender_id = models.ForeignKey(Tenders, on_delete=models.CASCADE)
+    supplier_id = models.ForeignKey(Supplier, on_delete=models.CASCADE)
+
+
