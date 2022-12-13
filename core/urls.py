@@ -1,4 +1,5 @@
 from django.urls import path
+from rest_framework.urlpatterns import format_suffix_patterns
 from core import views
 
 urlpatterns = [
@@ -9,3 +10,5 @@ urlpatterns = [
     # path('logout/', logout, name='logout'),
     # path('register/', register, name='register'),
 ]
+
+urlpatterns = format_suffix_patterns(urlpatterns)
