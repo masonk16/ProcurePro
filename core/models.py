@@ -33,11 +33,11 @@ class Supplier(models.Model):
 class Tenders(models.Model):
     id = models.AutoField(primary_key=True)
     category = models.CharField(max_length=200, null=True)
-    description = models.TextField(max_length=200, null=True)
+    description = models.TextField(null=True)
     budget = models.IntegerField(null=True)
-    opening_date = models.DateTimeField(max_length=50, null=False)
-    deadline = models.DateTimeField(max_length=50, null=False)
-    contractor_id = models.ForeignKey(Contractor, on_delete=models.CASCADE)
+    opening_date = models.DateTimeField(null=False)
+    deadline = models.DateTimeField(null=False)
+    # contractor_id = models.ForeignKey(Contractor, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.id
