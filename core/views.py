@@ -1,52 +1,54 @@
-from django.shortcuts import render
-
-
 from django.shortcuts import render, redirect
 from .models import *
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, logout, authenticate
-from .forms import *
+from django.http import HttpResponse, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.parsers import JSONParser
+from core.models import Tender
+from core.serializers import TenderSerializer
 
 
-def register(request):
+@csrf_exempt
+def tender_list(request):
+    """
+    List all Tenders, or create a new tender.
+    """
+    if request.method == "GET":
+        tender = Tender.objects.all()
+        serializer = TenderSerializer(tender, many=True)
+        return JsonResponse(serializer.data, safe=False)
+    elif request.method == "POST":
+        data = JSONParser().parse(request)
+        serializer = TenderSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, status=201)
+        return JsonResponse(serializer.errors, status=400)
 
-    if request.user.is_authenticated:
-        return redirect('home')
-    else:
-        form = UserCreationForm()
-        if request.method == 'POST':
-            form = UserCreationForm(request.POST)
+@csrf_exempt
+def tender_detail(request, pk):
+    """
+    Retrieve, update or delete a tender.
+    """
+    try:
+        tender = Tender.objects.get(pk=pk)
+    except Tender.DoesNotExist:
+        return HttpResponse(status=404)
 
-            if form.is_valid():
-                current_user = form.save()
-                Contractor.objects.create(user=current_user, name=current_user.username)
-                return redirect('login')
-        context = {'form': form}
-        return render(request, 'sign-up.html', context)
+    if request.method == 'GET':
+        serializer = TenderSerializer(tender)
+        return JsonResponse(serializer.data)
 
+    elif request.method == 'PUT':
+        data = JSONParser().parse(request)
+        serializer = TenderSerializer(tender, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data)
+        return JsonResponse(serializer.errors, status=400)
 
-def home(request):
-    if request.user.is_authenticated:
-        return render(request, 'index.html')
-    else:
-        return render(request, 'sign-in.html')
-
-
-def login(request):
-    if request.user.is_authenticated:
-        return redirect('home')
-    else:
-        if request.method == "POST":
-            name = request.POST.get('username')
-            pwd = request.POST.get('password')
-            user = authenticate(request, username=name, password=pwd)
-
-        if user is not None:
-            login(request, user)
-            return redirect('home')
-    return render(request, 'sign-in.html')
-
-
-def logout(request):
-    logout(request)
-    return redirect('login')
+    elif request.method == 'DELETE':
+        tender.delete()
+        return HttpResponse(status=204)
+    

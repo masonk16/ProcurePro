@@ -30,7 +30,7 @@ class Supplier(models.Model):
         return self.name
 
 
-class Tenders(models.Model):
+class Tender(models.Model):
     id = models.AutoField(primary_key=True)
     category = models.CharField(max_length=200, null=True)
     description = models.TextField(null=True)
@@ -48,7 +48,7 @@ class Bids(models.Model):
     description = models.TextField(max_length=200, null=True)
     bid_price = models.IntegerField(null=True)
     submission_date = models.DateTimeField(max_length=50, null=False)
-    tender_id = models.ForeignKey(Tenders, on_delete=models.CASCADE)
+    tender_id = models.ForeignKey(Tender, on_delete=models.CASCADE)
     supplier_id = models.ForeignKey(Supplier, on_delete=models.CASCADE)
 
     def __str__(self):

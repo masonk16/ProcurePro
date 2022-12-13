@@ -1,8 +1,8 @@
 from rest_framework import serializers
-from core.models import Tenders
+from core.models import Tender
 
 
-class TendersSerializer(serializers.ModelSerializer):
+class TenderSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Tenders
+        model = Tender
         fields = ['id', 'category', 'description', 'budget', 'opening_date', 'deadline']
