@@ -14,17 +14,17 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <title>Sign up - ProcurePro - Tenders made easy.</title>
     <!-- CSS files -->
-    <link href="./dist/css/tabler.min.css" rel="stylesheet"/>
-    <link href="./dist/css/tabler-flags.min.css" rel="stylesheet"/>
-    <link href="./dist/css/tabler-payments.min.css" rel="stylesheet"/>
-    <link href="./dist/css/tabler-vendors.min.css" rel="stylesheet"/>
-    <link href="./dist/css/demo.min.css" rel="stylesheet"/>
+    <link href="../static/css/tabler.min.css" rel="stylesheet"/>
+    <link href="../static/css/tabler-flags.min.css" rel="stylesheet"/>
+    <link href="../static/css/tabler-payments.min.css" rel="stylesheet"/>
+    <link href="../static/css/tabler-vendors.min.css" rel="stylesheet"/>
+    <link href="../static/css/demo.min.css" rel="stylesheet"/>
   </head>
   <body  class=" border-top-wide border-primary d-flex flex-column">
     <div class="page page-center">
       <div class="container-tight py-2">
         <div class="text-center">
-          <a href="." class="navbar-brand navbar-brand-autodark"><img src="./static/logo.png" height="250" alt=""></a>
+          <a href="." class="navbar-brand navbar-brand-autodark"><img src="../static/logo.png" height="250" alt=""></a>
         </div>
         <form class="card card-md" action="." method="get">
           <div class="card-body">
@@ -60,13 +60,13 @@
           </div>
         </form>
         <div class="text-center text-muted mt-3">
-          Already have account? <a href="./sign-in.html" tabindex="-1">Sign in</a>
+          Already have account? <a href="{% url "login" %}" tabindex="-1">Sign in</a>
         </div>
       </div>
     </div>
     <!-- Libs JS -->
     <!-- Tabler Core -->
-    <script src="./dist/js/tabler.min.js"></script>
-    <script src="./dist/js/demo.min.js"></script>
+    <script src="../static/js/tabler.min.js"></script>
+    <script src="../static/js/demo.min.js"></script>
   </body>
 </html>

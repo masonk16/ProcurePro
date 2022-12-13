@@ -44,7 +44,7 @@ def login(request):
         if user is not None:
             login(request, user)
             return redirect('home')
-    return render(request, 'login.html')
+    return render(request, 'sign-in.html')
 
 
 def logout(request):
