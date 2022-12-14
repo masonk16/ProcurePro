@@ -2,6 +2,7 @@ from core.models import Tender
 from core.serializers import TenderSerializer, UserSerializer
 from rest_framework import generics, permissions
 from django.contrib.auth.models import User
+from core.permissions import IsOwnerOrReadOnly
 
 
 class TenderList(generics.ListCreateAPIView):
@@ -16,7 +17,8 @@ class TenderList(generics.ListCreateAPIView):
 class TenderDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Tender.objects.all()
     serializer_class = TenderSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly,
+                          IsOwnerOrReadOnly]
 
 
 class UserList(generics.ListAPIView):
