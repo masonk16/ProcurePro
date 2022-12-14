@@ -1,49 +1,29 @@
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-from rest_framework import status
 from core.models import Tender
-from core.serializers import TenderSerializer
+from core.serializers import TenderSerializer, UserSerializer
+from rest_framework import generics, permissions
+from django.contrib.auth.models import User
 
 
-@api_view(['GET', 'POST'])
-def tender_list(request, format=None):
-    """
-    List all Tenders, or create a new tender.
-    """
-    if request.method == "GET":
-        tender = Tender.objects.all()
-        serializer = TenderSerializer(tender, many=True)
-        return Response(serializer.data)
-    elif request.method == "POST":
-        serializer = TenderSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+class TenderList(generics.ListCreateAPIView):
+    queryset = Tender.objects.all()
+    serializer_class = TenderSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
 
 
-@api_view(['GET', 'PUT', 'DELETE'])
-def tender_detail(request, pk, format=None):
-    """
-    Retrieve, update or delete a tender.
-    """
-    try:
-        tender = Tender.objects.get(pk=pk)
-    except Tender.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+class TenderDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Tender.objects.all()
+    serializer_class = TenderSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
-    if request.method == 'GET':
-        serializer = TenderSerializer(tender)
-        return Response(serializer.data)
 
-    elif request.method == 'PUT':
-        serializer = TenderSerializer(tender, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+class UserList(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
-    elif request.method == 'DELETE':
-        tender.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-    
+
+class UserDetail(generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer

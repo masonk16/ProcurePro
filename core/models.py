@@ -37,7 +37,7 @@ class Tender(models.Model):
     budget = models.IntegerField(null=True)
     opening_date = models.DateTimeField(null=False)
     deadline = models.DateTimeField(null=False)
-    # contractor_id = models.ForeignKey(Contractor, on_delete=models.CASCADE)
+    owner = models.ForeignKey('auth.User', related_name='tenders', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.id
