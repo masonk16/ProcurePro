@@ -3,17 +3,17 @@ from core.models import Tender
 from django.contrib.auth.models import User
 
 
-class TenderSerializer(serializers.ModelSerializer):
+class TenderSerializer(serializers.HyperlinkedModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
 
     class Meta:
         model = Tender
-        fields = ['id', 'category', 'description', 'budget', 'opening_date', 'deadline', 'owner']
+        fields = ['url', 'id', 'category', 'description', 'budget', 'opening_date', 'deadline', 'owner']
 
 
-class UserSerializer(serializers.ModelSerializer):
-    tenders = serializers.PrimaryKeyRelatedField(many=True, queryset=Tender.objects.all())
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    tenders = serializers.HyperlinkedRelatedField(many=True, view_name='tender-detail', read_only=True)
 
     class Meta:
         model = User
-        fields = ['id', 'username', 'tenders']
+        fields = ['url', 'id', 'username', 'tenders']
