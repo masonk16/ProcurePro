@@ -1,4 +1,4 @@
-
+{% load static %}
 <!doctype html>
 <!--
 * Tabler - Premium and Open Source dashboard template with responsive and high quality UI.
@@ -39,11 +39,11 @@
     <meta property="og:url" content="https://preview.tabler.io/static/og.png">
     <meta property="og:description" content="Tabler comes with tons of well-designed components and features. Start your adventure with Tabler and make your dashboard great again. For free!">
     <!-- CSS files -->
-    <link href="./dist/css/tabler.min.css?1668288743" rel="stylesheet"/>
-    <link href="./dist/css/tabler-flags.min.css?1668288743" rel="stylesheet"/>
-    <link href="./dist/css/tabler-payments.min.css?1668288743" rel="stylesheet"/>
-    <link href="./dist/css/tabler-vendors.min.css?1668288743" rel="stylesheet"/>
-    <link href="./dist/css/demo.min.css?1668288743" rel="stylesheet"/>
+    <link href="{% static "css/tabler.min.css" %}" rel="stylesheet"/>
+    <link href="{% static 'css/tabler-flags.min.css' %}" rel="stylesheet"/>
+    <link href="{% static 'css/tabler-payments.min.css' %}" rel="stylesheet"/>
+    <link href="{% static 'css/tabler-vendors.min.css' %}" rel="stylesheet"/>
+    <link href="{% static 'css/demo.min.css' %}" rel="stylesheet"/>
     <style>
       @import url('https://rsms.me/inter/inter.css');
       :root {
@@ -52,12 +52,12 @@
     </style>
   </head>
   <body  class=" d-flex flex-column bg-white">
-    <script src="./dist/js/demo-theme.min.js?1668288743"></script>
+    <script src="../static/js/demo-theme.min.js?1668288743"></script>
     <div class="row g-0 flex-fill">
       <div class="col-12 col-lg-6 col-xl-4 border-top-wide border-primary d-flex flex-column justify-content-center">
         <div class="container container-tight my-5 px-lg-5">
           <div class="text-center">
-            <a href="." class="navbar-brand navbar-brand-autodark"><img src="./static/logo.png" height="250" alt=""></a>
+            <a href="." class="navbar-brand navbar-brand-autodark"><img src="../static/logo.png" height="250" alt=""></a>
           </div>
           <h2 class="h3 text-center mb-3">
             Login to your account
@@ -100,12 +100,12 @@
       </div>
       <div class="col-12 col-lg-6 col-xl-8 d-none d-lg-block">
         <!-- Photo -->
-        <div class="bg-cover h-100 min-vh-100" style="background-image: url(./static/photos/sign-in.jpg)"></div>
+        <div class="bg-cover h-100 min-vh-100" style="background-image: url(../static/photos/sign-in.jpg)"></div>
       </div>
     </div>
     <!-- Libs JS -->
     <!-- Tabler Core -->
-    <script src="./dist/js/tabler.min.js?1668288743" defer></script>
-    <script src="./dist/js/demo.min.js?1668288743" defer></script>
+    <script src="{% static "js/tabler.min.js?1668288743" %}" defer></script>
+    <script src="../static/js/demo.min.js?1668288743" defer></script>
   </body>
 </html>

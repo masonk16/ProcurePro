@@ -1,52 +1,42 @@
-from django.shortcuts import render
+from core.models import Tender
+from core.serializers import TenderSerializer, UserSerializer
+from rest_framework import generics, permissions
+from django.contrib.auth.models import User
+from core.permissions import IsOwnerOrReadOnly
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework.reverse import reverse
 
 
-from django.shortcuts import render, redirect
-from .models import *
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import login, logout, authenticate
-from .forms import *
+@api_view(['GET'])
+def api_root(request, format=None):
+    return Response({
+        'users': reverse('user-list', request=request, format=format),
+        'tenders': reverse('tender-list', request=request, format=format)
+    })
 
 
-def register(request):
+class TenderList(generics.ListCreateAPIView):
+    queryset = Tender.objects.all()
+    serializer_class = TenderSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
-    if request.user.is_authenticated:
-        return redirect('home')
-    else:
-        form = UserCreationForm()
-        if request.method == 'POST':
-            form = UserCreationForm(request.POST)
-
-            if form.is_valid():
-                current_user = form.save()
-                Contractor.objects.create(user=current_user, name=current_user.username)
-                return redirect('login')
-        context = {'form': form}
-        return render(request, 'sign-up.html', context)
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
 
 
-def home(request):
-    if request.user.is_authenticated:
-        return render(request, 'index.html')
-    else:
-        return render(request, 'sign-in.html')
+class TenderDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Tender.objects.all()
+    serializer_class = TenderSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly,
+                          IsOwnerOrReadOnly]
 
 
-def login(request):
-    if request.user.is_authenticated:
-        return redirect('home')
-    else:
-        if request.method == "POST":
-            name = request.POST.get('username')
-            pwd = request.POST.get('password')
-            user = authenticate(request, username=name, password=pwd)
-
-        if user is not None:
-            login(request, user)
-            return redirect('home')
-    return render(request, 'login.html')
+class UserList(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
 
-def logout(request):
-    logout(request)
-    return redirect('login')
+class UserDetail(generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
