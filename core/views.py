@@ -6,9 +6,33 @@ from core.permissions import IsOwnerOrReadOnly
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, login
+from django.contrib import messages
+from django.shortcuts import  render, redirect
+from .forms import NewUserForm
 
 User = get_user_model()
+
+
+def index(request):
+    return render(request=request, template_name="index.html")
+
+
+def register_user(request):
+    if request.method == "POST":
+        form = NewUserForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            messages.success(request, "Registration successful." )
+            return redirect("main:homepage")
+        messages.error(request, "Unsuccessful registration. Invalid information.")
+    form = NewUserForm()
+    return render(request=request, template_name="sign-up.html", context={"register_form":form})
+
+
+def user_login(request):
+    return render(request=request, template_name="sign-in.html")
 
 
 @api_view(['GET'])

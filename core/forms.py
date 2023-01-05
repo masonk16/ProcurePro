@@ -63,7 +63,7 @@ class NewUserForm(UserCreationForm):
 
     email = forms.EmailField(required=True)
     company_name = forms.CharField(required=True)
-    address = forms.Textarea(required=True)
+    address = forms.Textarea()
     industry = forms.ChoiceField(choices=CATEGORY_CHOICES)
     phone_number = forms.CharField(required=True)
     website = forms.CharField(required=True)
@@ -71,7 +71,7 @@ class NewUserForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ("email", 'company_name', 'address', 'industry', 'phone_number', 'website', 'user_type'
+        fields = ("email", 'company_name', 'industry', 'phone_number', 'website', 'user_type',
                   "password1", "password2")
 
     def save(self, commit=True):

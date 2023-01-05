@@ -2,11 +2,14 @@ from django.urls import path
 from rest_framework.urlpatterns import format_suffix_patterns
 from core import views
 
+app_name = "main"
+
 
 # API endpoints
 urlpatterns = format_suffix_patterns([
     path('', views.index, name='index'),
     path('register/', views.register_user, name='register'),
+    path('login/', views.user_login, name='login'),
     path('apis/', views.api_root),
     path('tender/',
          views.TenderList.as_view(),
