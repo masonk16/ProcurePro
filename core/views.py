@@ -6,7 +6,7 @@ from core.permissions import IsOwnerOrReadOnly
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
-from django.contrib.auth import get_user_model, login, authenticate
+from django.contrib.auth import get_user_model, login, authenticate, logout
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from .forms import NewUserForm
@@ -46,9 +46,15 @@ def user_login(request):
             else:
                 messages.error(request,"Invalid username or password.")
         else:
-            messages.error(request,"Invalid username or password.")
+            messages.error(request, "Invalid username or password.")
     form = AuthenticationForm()
     return render(request=request, template_name="sign-in.html", context={"login_form": form})
+
+
+def user_logout(request):
+    logout(request)
+    messages.info(request, "You have successfully logged out.")
+    return redirect("main:index")
 
 
 @api_view(['GET'])
