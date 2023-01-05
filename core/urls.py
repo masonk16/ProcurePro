@@ -5,7 +5,9 @@ from core import views
 
 # API endpoints
 urlpatterns = format_suffix_patterns([
-    path('', views.api_root),
+    path('', views.index, name='index'),
+    path('register/', views.register_user, name='register'),
+    path('apis/', views.api_root),
     path('tender/',
          views.TenderList.as_view(),
          name='tender-list'),
