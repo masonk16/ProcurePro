@@ -1,9 +1,9 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
+from django.contrib.auth.models import Group, User
+from django.contrib.auth import get_user_model
 
-
-# Create your forms here.
+User = get_user_model()
 
 class NewUserForm(UserCreationForm):
     MANUFACTURING = 'MANU'
@@ -63,16 +63,16 @@ class NewUserForm(UserCreationForm):
 
     email = forms.EmailField(required=True)
     company_name = forms.CharField(required=True)
-    address = forms.Textarea()
+    address = forms.CharField(required=True)
     industry = forms.ChoiceField(choices=CATEGORY_CHOICES)
     phone_number = forms.CharField(required=True)
     website = forms.CharField(required=True)
-    user_type = forms.ChoiceField(choices=USER_CHOICES)
+    user_type = forms.ModelChoiceField(queryset=Group.objects.all(), required=True)
 
     class Meta:
         model = User
-        fields = ("email", 'company_name', 'industry', 'phone_number', 'website', 'user_type',
-                  "password1", "password2")
+        fields = ("email", 'company_name', 'address', 'industry', 'phone_number',
+                  'website', 'user_type', "password1", "password2")
 
     def save(self, commit=True):
         user = super(NewUserForm, self).save(commit=False)

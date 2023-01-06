@@ -24,12 +24,15 @@ def register_user(request):
         form = NewUserForm(request.POST)
         if form.is_valid():
             user = form.save()
+            group = form.cleaned_data['user_type']
+            group.user_set.add(user)
             login(request, user)
             messages.success(request, "Registration successful." )
-            return redirect("main:homepage")
+            return redirect('login/')
+    else:
         messages.error(request, "Unsuccessful registration. Invalid information.")
-    form = NewUserForm()
-    return render(request=request, template_name="sign-up.html", context={"register_form":form})
+        form = NewUserForm()
+    return render(request=request, template_name="sign-up.html", context={"register_form": form})
 
 
 def user_login(request):
@@ -44,7 +47,7 @@ def user_login(request):
                 messages.info(request, f"You are now logged in as {username}.")
                 return redirect("main:homepage")
             else:
-                messages.error(request,"Invalid username or password.")
+                messages.error(request, "Invalid username or password.")
         else:
             messages.error(request, "Invalid username or password.")
     form = AuthenticationForm()

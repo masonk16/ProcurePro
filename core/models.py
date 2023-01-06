@@ -94,22 +94,20 @@ class User(AbstractUser):
         (PHARMACEUTICAL, 'Pharmaceutical')
     ]
     username = None
+    first_name = None
+    last_name = None
     email = models.EmailField(_('email address'), unique=True, null=True)
     company_name = models.CharField(max_length=200, null=True)
     address = models.TextField(max_length=200, null=True)
-    industry = models.CharField(choices=CATEGORY_CHOICES,
-                                default=AGRICULTURE,
-                                null=True,
-                                max_length=100)
+    industry = models.CharField(null=True, max_length=100)
     phone_number = models.CharField(max_length=200, null=True)
     website = models.CharField(max_length=200, null=True)
-    user_type = models.IntegerField(choices=UserType.choices(),
-                                    default=UserType.CONTRACTOR)
+    user_type = models.CharField(max_length=20, null=True)
     date_joined = models.DateTimeField(verbose_name='date_joined',
                                        auto_now_add=True)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['company_name', 'address', 'industry', 'phone_number', 'website']
+    REQUIRED_FIELDS = ['company_name', 'address', 'industry', 'phone_number', 'website', 'user_type']
 
     objects = UserManager()
 
