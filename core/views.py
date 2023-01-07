@@ -1,7 +1,9 @@
+from django.http import HttpResponseRedirect
+
 from core.models import Tender, Bids
 from core.serializers import BidSerializer, TenderSerializer, UserSerializer
 from rest_framework import generics, permissions
-from django.contrib.auth.models import User
+from django.contrib.auth.models import Group
 from core.permissions import IsOwnerOrReadOnly
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -23,12 +25,14 @@ def register_user(request):
     if request.method == "POST":
         form = NewUserForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            group = form.cleaned_data['user_type']
-            group.user_set.add(user)
-            login(request, user)
-            messages.success(request, "Registration successful." )
-            return redirect('login/')
+            user = form.save(commit=False)
+            user.save()
+            selected_group = form.cleaned_data['user_type']
+            group = Group.objects.get(name=selected_group)
+            user.groups.add(group)
+            # group.user_set.add(user)
+            messages.success(request, "Registration successful.")
+            return HttpResponseRedirect('login/')
     else:
         messages.error(request, "Unsuccessful registration. Invalid information.")
         form = NewUserForm()
@@ -39,17 +43,18 @@ def user_login(request):
     if request.method == "POST":
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
-            username = form.cleaned_data.get('username')
+            email = form.cleaned_data.get('email')
             password = form.cleaned_data.get('password')
-            user = authenticate(username=username, password=password)
+            user = authenticate(username=email,
+                                password=password,)
             if user is not None:
                 login(request, user)
-                messages.info(request, f"You are now logged in as {username}.")
-                return redirect("main:homepage")
+                messages.info(request, f"You are now logged in as {email}.")
+                return redirect("main:index")
             else:
-                messages.error(request, "Invalid username or password.")
+                messages.error(request, "Invalid username or password.1")
         else:
-            messages.error(request, "Invalid username or password.")
+            messages.error(request, "Invalid username or password.2")
     form = AuthenticationForm()
     return render(request=request, template_name="sign-in.html", context={"login_form": form})
 

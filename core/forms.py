@@ -56,17 +56,12 @@ class NewUserForm(UserCreationForm):
         (PHARMACEUTICAL, 'Pharmaceutical')
     ]
 
-    USER_CHOICES = (
-        ("1", "Contractor"),
-        ("2", "Supplier"),
-    )
-
     email = forms.EmailField(required=True)
     company_name = forms.CharField(required=True)
     address = forms.CharField(required=True)
     industry = forms.ChoiceField(choices=CATEGORY_CHOICES)
     phone_number = forms.CharField(required=True)
-    website = forms.CharField(required=True)
+    website = forms.URLField()
     user_type = forms.ModelChoiceField(queryset=Group.objects.all(), required=True)
 
     class Meta:
