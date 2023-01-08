@@ -39,7 +39,7 @@
     <meta property="og:url" content="https://preview.tabler.io/static/og.png">
     <meta property="og:description" content="Tabler comes with tons of well-designed components and features. Start your adventure with Tabler and make your dashboard great again. For free!">
     <!-- CSS files -->
-    <link href="{% static "css/tabler.min.css" %}" rel="stylesheet"/>
+    <link href="{% static 'css/tabler.min.css' %}" rel="stylesheet"/>
     <link href="{% static 'css/tabler-flags.min.css' %}" rel="stylesheet"/>
     <link href="{% static 'css/tabler-payments.min.css' %}" rel="stylesheet"/>
     <link href="{% static 'css/tabler-vendors.min.css' %}" rel="stylesheet"/>
@@ -67,12 +67,6 @@
           <form action="." method="POST" autocomplete="off" novalidate>
             {% csrf_token %}
             {{ login_form|crispy }}
-            <div class="mb-2">
-              <label class="form-check">
-                <input type="checkbox" class="form-check-input"/>
-                <span class="form-check-label">Remember me on this device</span>
-              </label>
-            </div>
             <div class="form-footer">
               <button type="submit" class="btn btn-primary w-100">Sign in</button>
             </div>
@@ -90,7 +84,7 @@
   {% endblock %}
     <!-- Libs JS -->
     <!-- Tabler Core -->
-    <script src="{% static "js/tabler.min.js?1668288743" %}" defer></script>
+    <script src="{% static 'js/tabler.min.js?1668288743' %}" defer></script>
     <script src="../static/js/demo.min.js?1668288743" defer></script>
   </body>
 </html>

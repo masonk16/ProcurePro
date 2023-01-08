@@ -11,9 +11,10 @@ from rest_framework.reverse import reverse
 from django.contrib.auth import get_user_model, login, authenticate, logout
 from django.contrib import messages
 from django.shortcuts import render, redirect
-from .forms import NewUserForm
+from .forms import NewUserForm, UserLogin
 from django.contrib.auth.forms import AuthenticationForm
-
+from .backends import EmailBackend
+import pprint
 User = get_user_model()
 
 
@@ -42,15 +43,16 @@ def register_user(request):
 def user_login(request):
     if request.method == "POST":
         form = AuthenticationForm(request, data=request.POST)
+        pprint.pprint(form.data)
+        pprint.pprint(form)
         if form.is_valid():
-            email = form.cleaned_data.get('email')
+            email = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
-            user = authenticate(username=email,
-                                password=password,)
+            user = authenticate(email=email, password=password,)
             if user is not None:
                 login(request, user)
                 messages.info(request, f"You are now logged in as {email}.")
-                return redirect("main:index")
+                return HttpResponseRedirect('')
             else:
                 messages.error(request, "Invalid username or password.1")
         else:
