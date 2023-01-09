@@ -142,10 +142,11 @@ class Tender(models.Model):
     budget = models.IntegerField(null=True)
     deadline = models.DateTimeField(null=True)
     opening_date = models.DateTimeField(verbose_name='opening_date', auto_now_add=True)
-    contractor = models.ForeignKey(Contractor, related_name='tenders', on_delete=models.CASCADE)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='tenders', on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.id
+        return str(self.id)
+
 
 
 class Bids(models.Model):
@@ -154,7 +155,7 @@ class Bids(models.Model):
     bid_price = models.IntegerField(null=True)
     submission_date = models.DateTimeField(verbose_name='submission_date', auto_now_add=True)
     tender_id = models.ForeignKey(Tender, on_delete=models.CASCADE)
-    supplier = models.ForeignKey(Supplier, related_name='bids', on_delete=models.CASCADE)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='bids', on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.id
+        return str(self.id)

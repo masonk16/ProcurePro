@@ -75,12 +75,3 @@ class NewUserForm(UserCreationForm):
         if commit:
             user.save()
         return user
-
-
-class UserLogin(AuthenticationForm):
-    email = forms.EmailField(required=True)
-    password = forms.PasswordInput()
-
-    class Meta:
-        model = User
-        fields = ("email", "password")

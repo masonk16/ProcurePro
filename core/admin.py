@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from core.models import Supplier, Contractor, User
+from core.models import *
 
 
 @admin.register(User)
@@ -25,3 +25,6 @@ class CustomUserAdmin(UserAdmin):
 
 admin.site.register(Supplier)
 admin.site.register(Contractor)
+admin.site.register(Bids)
+admin.site.register(Tender)
+
