@@ -1,19 +1,33 @@
 from rest_framework import serializers
-from core.models import Tender
-from django.contrib.auth.models import User
+from core.models import *
 
 
-class TenderSerializer(serializers.HyperlinkedModelSerializer):
-    owner = serializers.ReadOnlyField(source='owner.username')
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = "__all__"
+
+
+
+class TenderSerializer(serializers.Serializer):
+    owner = serializers.ReadOnlyField(source='owner.email')
+    bids = serializers.HyperlinkedRelatedField(
+        many=True,
+        read_only=True,
+        view_name='bid-detail'
+    )
 
     class Meta:
         model = Tender
-        fields = ['url', 'id', 'category', 'description', 'budget', 'opening_date', 'deadline', 'owner']
+        fields = ['url', 'id', 'category', 'description', 'budget', 'opening_date', 'deadline', 'owner', 'bids']
 
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
-    tenders = serializers.HyperlinkedRelatedField(many=True, view_name='tender-detail', read_only=True)
+class BidSerializer(serializers.Serializer):
+    owner = serializers.ReadOnlyField(source='owner.email')
+    tender_id = serializers.HyperlinkedRelatedField(many=True, view_name='tender-detail', read_only=True)
 
     class Meta:
-        model = User
-        fields = ['url', 'id', 'username', 'tenders']
+        model = Bids
+        fields = ['url', 'id', 'description', 'bid_price', 'submission_date', 'tender_id', 'owner']
+
+
