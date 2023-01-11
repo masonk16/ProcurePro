@@ -1,6 +1,5 @@
 db.sqlite3
 ProcurePro/settings.py
-manage.py
 settings.py
 
 # Byte-compiled / optimized / DLL files
