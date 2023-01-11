@@ -1,52 +1,28 @@
-<!doctype html>
-<!--
-* Tabler - Premium and Open Source dashboard template with responsive and high quality UI.
-* @version 1.0.0-beta5
-* @link https://tabler.io
-* Copyright 2018-2022 The Tabler Authors
-* Copyright 2018-2022 codecalm.net Paweł Kuna
-* Licensed under MIT (https://github.com/tabler/tabler/blob/master/LICENSE)
--->
-<html lang="en">
-  <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <title>Sign up - ProcurePro - Tenders made easy.</title>
-    <!-- CSS files -->
-    <link href="../static/css/tabler.min.css" rel="stylesheet"/>
-    <link href="../static/css/tabler-flags.min.css" rel="stylesheet"/>
-    <link href="../static/css/tabler-payments.min.css" rel="stylesheet"/>
-    <link href="../static/css/tabler-vendors.min.css" rel="stylesheet"/>
-    <link href="../static/css/demo.min.css" rel="stylesheet"/>
-  </head>
-  <body  class=" border-top-wide border-primary d-flex flex-column">
-  {% block content %}
-  {% load crispy_forms_tags %}
-    <div class="page page-center">
-      <div class="container-tight py-2">
-        <div class="text-center">
-          <a href="." class="navbar-brand navbar-brand-autodark"><img src="../static/logo.png" height="250" alt=""></a>
-        </div>
-        <form class="card card-md" action="." method="POST">
-          <div class="card-body">
-            <h2 class="card-title text-center mb-4">Create new account</h2>
-            {% csrf_token %}
-            {{ register_form|crispy }}
-            <div class="form-footer">
-              <button type="submit" class="btn btn-primary w-100">Create new account</button>
-            </div>
+{% extends 'base.html' %}
+{% load static %}
+
+<body  class=" border-top-wide border-primary d-flex flex-column">
+{% block content %}
+{% load crispy_forms_tags %}
+  <div class="page page-center">
+    <div class="container-tight py-2">
+      <div class="text-center">
+        <a href="." class="navbar-brand navbar-brand-autodark"><img src="../static/logo.png" height="250" alt=""></a>
+      </div>
+      <form class="card card-md" action="." method="POST">
+        <div class="card-body">
+          <h2 class="card-title text-center mb-4">Create new account</h2>
+          {% csrf_token %}
+          {{ register_form|crispy }}
+          <div class="form-footer">
+            <button type="submit" class="btn btn-primary w-100">Create new account</button>
           </div>
-        </form>
-        <div class="text-center text-muted mt-3">
-          Already have account? <a href="#" tabindex="-1">Sign in</a>
         </div>
+      </form>
+      <div class="text-center text-muted mt-3">
+        Already have account? <a href="#" tabindex="-1">Sign in</a>
       </div>
     </div>
-  {% endblock %}
-    <!-- Libs JS -->
-    <!-- Tabler Core -->
-    <script src="../static/js/tabler.min.js"></script>
-    <script src="../static/js/demo.min.js"></script>
-  </body>
-</html>
+  </div>
+{% endblock %}
+    
