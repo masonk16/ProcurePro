@@ -1,7 +1,8 @@
+{% load static %}
 <!doctype html>
 <!--
 * Tabler - Premium and Open Source dashboard template with responsive and high quality UI.
-* @version 1.0.0-beta5
+* @version 1.0.0-beta16
 * @link https://tabler.io
 * Copyright 2018-2022 The Tabler Authors
 * Copyright 2018-2022 codecalm.net Paweł Kuna
@@ -12,15 +13,62 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <title>Closed Tenders - ProcurePro</title>
+    <title>Search for Tenders - ProcurePro</title>
+    <script defer data-api="/stats/api/event" data-domain="preview.tabler.io" src="/stats/js/script.js"></script>
+    <meta name="msapplication-TileColor" content=""/>
+    <meta name="theme-color" content=""/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="mobile-web-app-capable" content="yes"/>
+    <meta name="HandheldFriendly" content="True"/>
+    <meta name="MobileOptimized" content="320"/>
+    <link rel="icon" href="./favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon"/>
+    <meta name="description" content="Tabler comes with tons of well-designed components and features. Start your adventure with Tabler and make your dashboard great again. For free!"/>
+    <meta name="twitter:image:src" content="https://preview.tabler.io/static/og.png">
+    <meta name="twitter:site" content="@tabler_ui">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Tabler: Premium and Open Source dashboard template with responsive and high quality UI.">
+    <meta name="twitter:description" content="Tabler comes with tons of well-designed components and features. Start your adventure with Tabler and make your dashboard great again. For free!">
+    <meta property="og:image" content="https://preview.tabler.io/static/og.png">
+    <meta property="og:image:width" content="1280">
+    <meta property="og:image:height" content="640">
+    <meta property="og:site_name" content="Tabler">
+    <meta property="og:type" content="object">
+    <meta property="og:title" content="Tabler: Premium and Open Source dashboard template with responsive and high quality UI.">
+    <meta property="og:url" content="https://preview.tabler.io/static/og.png">
+    <meta property="og:description" content="Tabler comes with tons of well-designed components and features. Start your adventure with Tabler and make your dashboard great again. For free!">
     <!-- CSS files -->
-    <link href="./dist/css/tabler.min.css" rel="stylesheet"/>
-    <link href="./dist/css/tabler-flags.min.css" rel="stylesheet"/>
-    <link href="./dist/css/tabler-payments.min.css" rel="stylesheet"/>
-    <link href="./dist/css/tabler-vendors.min.css" rel="stylesheet"/>
-    <link href="./dist/css/demo.min.css" rel="stylesheet"/>
+    <link href="{% static '../static/css/tabler.min.css' %}" rel="stylesheet">
+    <link href="{% static '../static/css/tabler-flags.min.css' %}" rel="stylesheet">
+    <link href="{% static '../static/css/tabler-payments.min.css' %}" rel="stylesheet">
+    <link href="{% static '../static/css/tabler-vendors.min.css' %}" rel="stylesheet">
+    <link href="{% static '../static/css/demo.min.css' %}" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+    rel="stylesheet"/>
+
+    <style>
+      @import url('https://rsms.me/inter/inter.css');
+      :root {
+      	--tblr-font-sans-serif: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
+      }
+
+      h6.text-muted {
+        font-size: 13px;
+      }
+    </style>
   </head>
   <body >
+    
+    <script src="{% static 'js/demo-theme.min.js?1668288743' %}"></script>
     <div class="wrapper">
       <header class="navbar navbar-expand-md navbar-light d-print-none">
         <div class="container-xl">
@@ -29,7 +77,7 @@
           </button>
           <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
             <a href=".">
-              <img src="./static/logo.png" width="250" height="100" alt="Tabler" class="navbar-brand-image">
+              <img src="{% static 'logo.png' %}" width="250" height="100" alt="Tabler" class="navbar-brand-image">
             </a>
           </h1>
           <div class="navbar-nav flex-row order-md-last">
@@ -50,7 +98,7 @@
             </div>
             <div class="nav-item dropdown">
               <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown" aria-label="Open user menu">
-                <span class="avatar avatar-sm" style="background-image: url(./static/avatars/000m.jpg)"></span>
+                <span class="avatar avatar-sm" style="background-image: url(../static/avatars/000m.jpg)"></span>
                 <div class="d-none d-xl-block ps-2">
                   <div>Company XYZ</div>
                 </div>
@@ -74,7 +122,7 @@
                 <li class="nav-item active">
                   <a class="nav-link" href="./index.html" >
                     <span class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/home -->
-                      <img class="icon" src="static/icons/home.svg">
+                      <img class="icon" src="{% static 'icons/home.svg' %}">
                     </span>
                     <span class="nav-link-title">
                       Home
@@ -84,7 +132,7 @@
                 <li class="nav-item">
                   <a class="nav-link" href="#navbar-base" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
                     <span class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/package -->
-                      <img class="icon" src="static/icons/tenders.svg">
+                      <img class="icon" src="{% static 'icons/tenders.svg' %}">
                     </span>
                     <span class="nav-link-title">
                       My Tenders
@@ -94,7 +142,7 @@
                 <li class="nav-item">
                   <a class="nav-link" href="./form-elements.html" >
                     <span class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/checkbox -->
-                      <img class="icon" src="static/icons/closed.svg">
+                      <img class="icon" src="{% static 'icons/closed.svg' %}">
                     </span>
                     <span class="nav-link-title">
                       Closed Tenders
@@ -104,7 +152,7 @@
                 <li class="nav-item">
                   <a class="nav-link" href="#navbar-extra" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
                     <span class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/star -->
-                      <img class="icon" src="static/icons/suppliers.svg">
+                      <img class="icon" src="{% static 'icons/suppliers.svg' %}">
                     </span>
                     <span class="nav-link-title">
                       Suppliers / Vendors
@@ -116,19 +164,13 @@
           </div>
         </div>
       </div>
+
       <div class="page-wrapper">
         <div class="container-xl">
           <!-- Page title -->
-          <div class="page-header d-print-none">
-            <div class="row align-items-center">
-              <div class="col">
-                <h2 class="page-title">
-                  Main Page
-                </h2>
-              </div>
-            </div>
-          </div>
         </div>
+        {% block content %}
+        {% endblock %}
         
        <footer class="footer footer-transparent d-print-none">
           <div class="container-xl">
@@ -155,7 +197,8 @@
     </div>
     <!-- Libs JS -->
     <!-- Tabler Core -->
-    <script src="./dist/js/tabler.min.js"></script>
-    <script src="./dist/js/demo.min.js"></script>
+    <script src="{% static '../static/js/tabler.min.js' %}"></script>
+    <script src="{% static '../static/js/demo.min.js' %}"></script>
+
   </body>
 </html>
