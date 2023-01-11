@@ -1,3 +1,6 @@
+{% extends 'main.html' %}
+
+{% load static %}
 <!doctype html>
 <!--
 * Tabler - Premium and Open Source dashboard template with responsive and high quality UI.
@@ -14,11 +17,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <title>Users list - Tabler - Premium and Open Source dashboard template with responsive and high quality UI.</title>
     <!-- CSS files -->
-    <link href="../static/css/tabler.min.css" rel="stylesheet"/>
-    <link href="../static/css/tabler-flags.min.css" rel="stylesheet"/>
-    <link href="../static/css/tabler-payments.min.css" rel="stylesheet"/>
-    <link href="../static/css/tabler-vendors.min.css" rel="stylesheet"/>
-    <link href="../static/css/demo.min.css" rel="stylesheet"/>
+    <link href="{% static '../static/css/tabler.min.css' %}" rel="stylesheet">
+    <link href="{% static '../static/css/tabler-flags.min.css' %}" rel="stylesheet">
+    <link href="{% static '../static/css/tabler-payments.min.css' %}" rel="stylesheet">
+    <link href="{% static '../static/css/tabler-vendors.min.css' %}" rel="stylesheet">
+    <link href="{% static '../static/css/demo.min.css' %}" rel="stylesheet">
   </head>
   <body >
     <div class="wrapper">
@@ -117,6 +120,8 @@
         </div>
       </div>
       <div class="page-wrapper">
+        {% block content %}
+        {% load rest_framework %}
         <div class="container-xl">
           <!-- Page title -->
           <div class="page-header d-print-none">
@@ -143,312 +148,27 @@
         <div class="page-body">
           <div class="container-xl">
             <div class="row row-cards">
+              {% for user in users %}
               <div class="col-md-6 col-lg-3">
+                
                 <div class="card">
                   <div class="card-body p-4 text-center">
                     <span class="avatar avatar-xl mb-3 avatar-rounded" style="background-image: url(../static/avatars/suplier.png)"></span>
-                    <h3 class="m-0 mb-1"><a href="#">One Time Company</a></h3>
-                    <div class="text-muted">Automotive</div>
+                    <h3 class="m-0 mb-1"><a href="#">{{ user.company_name }}</a></h3>
+                    <div class="text-muted">{{ user.industry }}</div>
                   </div>
                   <div class="d-flex">
                     <a href="#" class="card-btn"><!-- Download SVG icon from http://tabler-icons.io/i/mail -->
                       <img class="icon" src="../static/icons/email.svg">
-                      Email</a>
+                      {{ user.email }}</a>
                     <a href="#" class="card-btn"><!-- Download SVG icon from http://tabler-icons.io/i/phone -->
                       <img class="icon" src="../static/icons/phone.svg">
-                      Call</a>
+                      {{ user.phone_number }}</a>
                   </div>
                 </div>
               </div>
-              <div class="col-md-6 col-lg-3">
-                <div class="card">
-                  <div class="card-body p-4 text-center">
-                    <span class="avatar avatar-xl mb-3 avatar-rounded" style="background-image: url(../static/avatars/suplier.png)"></span>
-                    <h3 class="m-0 mb-1"><a href="#">Milestone</a></h3>
-                    <div class="text-muted">Construction</div>
-                  </div>
-                  <div class="d-flex">
-                    <a href="#" class="card-btn"><!-- Download SVG icon from http://tabler-icons.io/i/mail -->
-                      <img class="icon" src="../static/icons/email.svg">
-                      Email</a>
-                    <a href="#" class="card-btn"><!-- Download SVG icon from http://tabler-icons.io/i/phone -->
-                      <img class="icon" src="../static/icons/phone.svg">
-                      Call</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 col-lg-3">
-                <div class="card">
-                  <div class="card-body p-4 text-center">
-                    <span class="avatar avatar-xl mb-3 avatar-rounded" style="background-image: url(../static/avatars/suplier.png)"></span>
-                    <h3 class="m-0 mb-1"><a href="#">Lifeline Supplies</a></h3>
-                    <div class="text-muted">Healthcare</div>
-                  </div>
-                  <div class="d-flex">
-                    <a href="#" class="card-btn"><!-- Download SVG icon from http://tabler-icons.io/i/mail -->
-                      <img class="icon" src="../static/icons/email.svg">
-                      Email</a>
-                    <a href="#" class="card-btn"><!-- Download SVG icon from http://tabler-icons.io/i/phone -->
-                      <img class="icon" src="../static/icons/phone.svg">
-                      Call</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 col-lg-3">
-                <div class="card">
-                  <div class="card-body p-4 text-center">
-                    <span class="avatar avatar-xl mb-3 avatar-rounded" style="background-image: url(../static/avatars/suplier.png)"></span>
-                    <h3 class="m-0 mb-1"><a href="#">Magic!</a></h3>
-                    <div class="text-muted">Creative/Advertising</div>
-                  </div>
-                  <div class="d-flex">
-                    <a href="#" class="card-btn"><!-- Download SVG icon from http://tabler-icons.io/i/mail -->
-                      <img class="icon" src="../static/icons/email.svg">
-                      Email</a>
-                    <a href="#" class="card-btn"><!-- Download SVG icon from http://tabler-icons.io/i/phone -->
-                      <img class="icon" src="../static/icons/phone.svg">
-                      Call</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 col-lg-3">
-                <div class="card">
-                  <div class="card-body p-4 text-center">
-                    <span class="avatar avatar-xl mb-3 avatar-rounded" style="background-image: url(../static/avatars/suplier.png)"></span>
-                    <h3 class="m-0 mb-1"><a href="#">BetterComms</a></h3>
-                    <div class="text-muted">Telecommunications</div>
-                  </div>
-                  <div class="d-flex">
-                    <a href="#" class="card-btn"><!-- Download SVG icon from http://tabler-icons.io/i/mail -->
-                      <img class="icon" src="../static/icons/email.svg">
-                      Email</a>
-                    <a href="#" class="card-btn"><!-- Download SVG icon from http://tabler-icons.io/i/phone -->
-                      <img class="icon" src="../static/icons/phone.svg">
-                      Call</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 col-lg-3">
-                <div class="card">
-                  <div class="card-body p-4 text-center">
-                    <span class="avatar avatar-xl mb-3 avatar-rounded" style="background-image: url(../static/avatars/suplier.png)"></span>
-                    <h3 class="m-0 mb-1"><a href="#">Helper!</a></h3>
-                    <div class="text-muted">Pharmaceuticals</div>
-                  </div>
-                  <div class="d-flex">
-                    <a href="#" class="card-btn"><!-- Download SVG icon from http://tabler-icons.io/i/mail -->
-                      <img class="icon" src="../static/icons/email.svg">
-                      Email</a>
-                    <a href="#" class="card-btn"><!-- Download SVG icon from http://tabler-icons.io/i/phone -->
-                      <img class="icon" src="../static/icons/phone.svg">
-                      Call</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 col-lg-3">
-                <div class="card">
-                  <div class="card-body p-4 text-center">
-                    <span class="avatar avatar-xl mb-3 avatar-rounded" style="background-image: url(../static/avatars/suplier.png)"></span>
-                    <h3 class="m-0 mb-1"><a href="#">Big Base</a></h3>
-                    <div class="text-muted">Entertainment</div>
-                  </div>
-                  <div class="d-flex">
-                    <a href="#" class="card-btn"><!-- Download SVG icon from http://tabler-icons.io/i/mail -->
-                      <img class="icon" src="../static/icons/email.svg">
-                      Email</a>
-                    <a href="#" class="card-btn"><!-- Download SVG icon from http://tabler-icons.io/i/phone -->
-                      <img class="icon" src="../static/icons/phone.svg">
-                      Call</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 col-lg-3">
-                <div class="card">
-                  <div class="card-body p-4 text-center">
-                    <span class="avatar avatar-xl mb-3 avatar-rounded" style="background-image: url(../static/avatars/suplier.png)"></span>
-                    <h3 class="m-0 mb-1"><a href="#">Strike Out</a></h3>
-                    <div class="text-muted">Security</div>
-                  </div>
-                  <div class="d-flex">
-                    <a href="#" class="card-btn"><!-- Download SVG icon from http://tabler-icons.io/i/mail -->
-                      <img class="icon" src="../static/icons/email.svg">
-                      Email</a>
-                    <a href="#" class="card-btn"><!-- Download SVG icon from http://tabler-icons.io/i/phone -->
-                      <img class="icon" src="../static/icons/phone.svg">
-                      Call</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 col-lg-3">
-                <div class="card">
-                  <div class="card-body p-4 text-center">
-                    <span class="avatar avatar-xl mb-3 avatar-rounded" style="background-image: url(../static/avatars/suplier.png)"></span>
-                    <h3 class="m-0 mb-1"><a href="#">Happy Digger</a></h3>
-                    <div class="text-muted">Mining</div>
-                  </div>
-                  <div class="d-flex">
-                    <a href="#" class="card-btn"><!-- Download SVG icon from http://tabler-icons.io/i/mail -->
-                      <img class="icon" src="../static/icons/email.svg">
-                      Email</a>
-                    <a href="#" class="card-btn"><!-- Download SVG icon from http://tabler-icons.io/i/phone -->
-                      <img class="icon" src="../static/icons/phone.svg">
-                      Call</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 col-lg-3">
-                <div class="card">
-                  <div class="card-body p-4 text-center">
-                    <span class="avatar avatar-xl mb-3 avatar-rounded" style="background-image: url(../static/avatars/suplier.png)"></span>
-                    <h3 class="m-0 mb-1"><a href="#">Better Farms</a></h3>
-                    <div class="text-muted">Agriculture</div>
-                  </div>
-                  <div class="d-flex">
-                    <a href="#" class="card-btn"><!-- Download SVG icon from http://tabler-icons.io/i/mail -->
-                      <img class="icon" src="../static/icons/email.svg">
-                      Email</a>
-                    <a href="#" class="card-btn"><!-- Download SVG icon from http://tabler-icons.io/i/phone -->
-                      <img class="icon" src="../static/icons/phone.svg">
-                      Call</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 col-lg-3">
-                <div class="card">
-                  <div class="card-body p-4 text-center">
-                    <span class="avatar avatar-xl mb-3 avatar-rounded" style="background-image: url(../static/avatars/suplier.png)"></span>
-                    <h3 class="m-0 mb-1"><a href="#">ProTouch Solutions</a></h3>
-                    <div class="text-muted">Information Technology</div>
-                  </div>
-                  <div class="d-flex">
-                    <a href="#" class="card-btn"><!-- Download SVG icon from http://tabler-icons.io/i/mail -->
-                      <img class="icon" src="../static/icons/email.svg">
-                      Email</a>
-                    <a href="#" class="card-btn"><!-- Download SVG icon from http://tabler-icons.io/i/phone -->
-                      <img class="icon" src="../static/icons/phone.svg">
-                      Call</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 col-lg-3">
-                <div class="card">
-                  <div class="card-body p-4 text-center">
-                    <span class="avatar avatar-xl mb-3 avatar-rounded" style="background-image: url(../static/avatars/suplier.png)"></span>
-                    <h3 class="m-0 mb-1"><a href="#">In Time</a></h3>
-                    <div class="text-muted">Transportation</div>
-                  </div>
-                  <div class="d-flex">
-                    <a href="#" class="card-btn"><!-- Download SVG icon from http://tabler-icons.io/i/mail -->
-                      <img class="icon" src="../static/icons/email.svg">
-                      Email</a>
-                    <a href="#" class="card-btn"><!-- Download SVG icon from http://tabler-icons.io/i/phone -->
-                      <img class="icon" src="../static/icons/phone.svg">
-                      Call</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 col-lg-3">
-                <div class="card">
-                  <div class="card-body p-4 text-center">
-                    <span class="avatar avatar-xl mb-3 avatar-rounded" style="background-image: url(../static/avatars/suplier.png)"></span>
-                    <h3 class="m-0 mb-1"><a href="#">Colt Steel</a></h3>
-                    <div class="text-muted">Manufacturing</div>
-                  </div>
-                  <div class="d-flex">
-                    <a href="#" class="card-btn"><!-- Download SVG icon from http://tabler-icons.io/i/mail -->
-                      <img class="icon" src="../static/icons/email.svg">
-                      Email</a>
-                    <a href="#" class="card-btn"><!-- Download SVG icon from http://tabler-icons.io/i/phone -->
-                      <img class="icon" src="../static/icons/phone.svg">
-                      Call</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 col-lg-3">
-                <div class="card">
-                  <div class="card-body p-4 text-center">
-                    <span class="avatar avatar-xl mb-3 avatar-rounded" style="background-image: url(../static/avatars/suplier.png)"></span>
-                    <h3 class="m-0 mb-1"><a href="#">Light Fuels</a></h3>
-                    <div class="text-muted">Petroleum</div>
-                  </div>
-                  <div class="d-flex">
-                    <a href="#" class="card-btn"><!-- Download SVG icon from http://tabler-icons.io/i/mail -->
-                      <img class="icon" src="../static/icons/email.svg">
-                      Email</a>
-                    <a href="#" class="card-btn"><!-- Download SVG icon from http://tabler-icons.io/i/phone -->
-                      <img class="icon" src="../static/icons/phone.svg">
-                      Call</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 col-lg-3">
-                <div class="card">
-                  <div class="card-body p-4 text-center">
-                    <span class="avatar avatar-xl mb-3 avatar-rounded" style="background-image: url(../static/avatars/suplier.png)"></span>
-                    <h3 class="m-0 mb-1"><a href="#">One Time Company</a></h3>
-                    <div class="text-muted">Automotive</div>
-                  </div>
-                  <div class="d-flex">
-                    <a href="#" class="card-btn"><!-- Download SVG icon from http://tabler-icons.io/i/mail -->
-                      <img class="icon" src="../static/icons/email.svg">
-                      Email</a>
-                    <a href="#" class="card-btn"><!-- Download SVG icon from http://tabler-icons.io/i/phone -->
-                      <img class="icon" src="../static/icons/phone.svg">
-                      Call</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 col-lg-3">
-                <div class="card">
-                  <div class="card-body p-4 text-center">
-                    <span class="avatar avatar-xl mb-3 avatar-rounded" style="background-image: url(../static/avatars/suplier.png)"></span>
-                    <h3 class="m-0 mb-1"><a href="#">RedZone</a></h3>
-                    <div class="text-muted">Mass media</div>
-                  </div>
-                  <div class="d-flex">
-                    <a href="#" class="card-btn"><!-- Download SVG icon from http://tabler-icons.io/i/mail -->
-                      <img class="icon" src="../static/icons/email.svg">
-                      Email</a>
-                    <a href="#" class="card-btn"><!-- Download SVG icon from http://tabler-icons.io/i/phone -->
-                      <img class="icon" src="../static/icons/phone.svg">
-                      Call</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 col-lg-3">
-                <div class="card">
-                  <div class="card-body p-4 text-center">
-                    <span class="avatar avatar-xl mb-3 avatar-rounded" style="background-image: url(../static/avatars/suplier.png)"></span>
-                    <h3 class="m-0 mb-1"><a href="#">Bright Eye</a></h3>
-                    <div class="text-muted">Software</div>
-                  </div>
-                  <div class="d-flex">
-                    <a href="#" class="card-btn"><!-- Download SVG icon from http://tabler-icons.io/i/mail -->
-                      <img class="icon" src="../static/icons/email.svg">
-                      Email</a>
-                    <a href="#" class="card-btn"><!-- Download SVG icon from http://tabler-icons.io/i/phone -->
-                      <img class="icon" src="../static/icons/phone.svg">
-                      Call</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 col-lg-3">
-                <div class="card">
-                  <div class="card-body p-4 text-center">
-                    <span class="avatar avatar-xl mb-3 avatar-rounded" style="background-image: url(../static/avatars/suplier.png)"></span>
-                    <h3 class="m-0 mb-1"><a href="#">Big House</a></h3>
-                    <div class="text-muted">Real Estate</div>
-                  </div>
-                  <div class="d-flex">
-                    <a href="#" class="card-btn"><!-- Download SVG icon from http://tabler-icons.io/i/mail -->
-                      <img class="icon" src="../static/icons/email.svg">
-                      Email</a>
-                    <a href="#" class="card-btn"><!-- Download SVG icon from http://tabler-icons.io/i/phone -->
-                      <img class="icon" src="../static/icons/phone.svg">
-                      Call</a>
-                  </div>
-                </div>
-              </div>
+              {% endfor %}
+              
             </div>
             <div class="d-flex mt-4">
               <ul class="pagination ms-auto">
@@ -459,8 +179,8 @@
                     prev
                   </a>
                 </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item active"><a class="page-link" href="#">2</a></li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
                 <li class="page-item"><a class="page-link" href="#">3</a></li>
                 <li class="page-item"><a class="page-link" href="#">4</a></li>
                 <li class="page-item"><a class="page-link" href="#">5</a></li>
@@ -473,6 +193,7 @@
               </ul>
             </div>
           </div>
+          {% endblock %}
         </div>
         <footer class="footer footer-transparent d-print-none">
           <div class="container-xl">
@@ -496,10 +217,11 @@
           </div>
         </footer>
       </div>
+      
     </div>
     <!-- Libs JS -->
     <!-- Tabler Core -->
-    <script src="../static/js/tabler.min.js"></script>
-    <script src="../static/js/demo.min.js"></script>
+    <script src="{% static '../static/js/tabler.min.js' %}"></script>
+    <script src="{% static '../static/js/demo.min.js' %}"></script>
   </body>
 </html>
