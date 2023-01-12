@@ -189,8 +189,8 @@ class TenderDetail(LoginRequiredMixin, generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     def get(self, request, pk, *args, **kwargs):
-        tenders = Tender.objects.filter(id=pk)
-        return Response({'tenders': tenders}, template_name='tabs.html')
+        tender = Tender.objects.filter(id=pk)
+        return Response({'tender': tender}, template_name='tender-details.html')
 
 
 class UserTenderDetail(LoginRequiredMixin, generics.ListCreateAPIView):
@@ -205,7 +205,7 @@ class UserTenderDetail(LoginRequiredMixin, generics.ListCreateAPIView):
     def get(self, request, pk, *args, **kwargs):
         tenders = Tender.objects.filter(id=pk)
         bids = Bids.objects.filter(tender_id=pk)
-        return Response({'tenders': tenders, 'bids': bids}, template_name='tabs.html')
+        return Response({'tenders': tenders, 'bids': bids}, template_name='user-tender-details.html')
 
 
 class CreateBid(views.APIView):
@@ -285,5 +285,5 @@ class BidDetail(LoginRequiredMixin, generics.RetrieveUpdateDestroyAPIView):
                           IsOwnerOrReadOnly]
 
     def get(self, request, pk, *args, **kwargs):
-        tenders = Bids.objects.filter(id=pk)
-        return Response({'tenders': tenders}, template_name='tabs.html')
+        bids = Bids.objects.filter(id=pk)
+        return Response({'bids': bids}, template_name='bid-details.html')

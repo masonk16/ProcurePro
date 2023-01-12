@@ -18,7 +18,7 @@ urlpatterns = [
     path('user/tenders/',
          views.UserTenderList.as_view(),
          name='user-tenders'),
-    path('user/tenders/<int:pk>',
+    path('user/tenders/<int:pk>/',
          views.UserTenderDetail.as_view(),
          name='user-tender-detail'),
     path('tender/create/',
