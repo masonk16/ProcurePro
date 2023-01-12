@@ -253,7 +253,7 @@
                       {% for bid in bids %}
                         <tr>
                           <td><input class="form-check-input m-0 align-middle" type="checkbox" aria-label="Select invoice"></td>
-                          <td><a href="invoice.html" class="text-reset" tabindex="-1">{{ bid.id }}</a></td>
+                          <td><a href="{% url 'main:bid-detail' bid.id %}" class="text-reset" tabindex="-1">{{ bid.id }}</a></td>
                           <td>
                             {{ bid.owner }}
                           </td>

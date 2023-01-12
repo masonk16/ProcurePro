@@ -215,7 +215,7 @@
                     </ul>
                   </div>
                   <div class="card-footer">
-                    {% if user.user_type == 1 %}
+                    {% if user.user_type.Contractors %}
                     <a href="/bids/create/" class="btn btn-primary">Contact Supplier</a>
                     {% else %}
                     <a href="/bids/" target="_blank">Apply for more tenders</a>
