@@ -1,3 +1,5 @@
+{% load static %}
+
 <!doctype html>
 <!--
 * Tabler - Premium and Open Source dashboard template with responsive and high quality UI.
@@ -13,14 +15,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <title>Profile Page - ProcurePro</title>
-    <!-- CSS files -->
-    <link href="../static/css/tabler.min.css" rel="stylesheet"/>
-    <link href="../static/css/tabler-flags.min.css" rel="stylesheet"/>
-    <link href="../static/css/tabler-payments.min.css" rel="stylesheet"/>
-    <link href="../static/css/tabler-vendors.min.css" rel="stylesheet"/>
-    <link href="../static/css/demo.min.css" rel="stylesheet"/>
 
-    <link rel="stylesheet" href="../static/css/profile.css">
+    <!-- CSS files -->
+    <link href="{% static '../static/css/tabler.min.css' %}" rel="stylesheet">
+    <link href="{% static '../static/css/tabler-flags.min.css' %}" rel="stylesheet">
+    <link href="{% static '../static/css/tabler-payments.min.css' %}" rel="stylesheet">
+    <link href="{% static '../static/css/tabler-vendors.min.css' %}" rel="stylesheet">
+    <link href="{% static '../static/css/demo.min.css' %}" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static '../static/css/profile.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!--BOXICONS LINK-->
@@ -35,7 +38,7 @@
                 <a href="#" class="navbar-brand mb-0 h1">
                     <img 
                     class="d-inline-block align-top"
-                    src="../static/logo.png" alt="profile-logo" width="120" height="50">
+                    src="{% static 'logo.png' %}" alt="profile-logo" width="120" height="50">
                 </a>
                 <button 
                 type="button"
@@ -61,13 +64,13 @@
                             </a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a href="blog" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Blog
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a href="#blog-one" class="dropdown-item">Blog #1</a></li>
-                                <li><a href="#blog-two" class="dropdown-item">Blog #2</a></li>
-                                <li><a href="#blog-three" class="dropdown-item">Blog #3</a></li>
+                                <li><a href="#blog" class="dropdown-item">Blog #1</a></li>
+                                <li><a href="#blog" class="dropdown-item">Blog #2</a></li>
+                                <li><a href="#blog" class="dropdown-item">Blog #3</a></li>
 
                             </ul>
                         </li>
@@ -80,10 +83,10 @@
                 </div>
                 <form class="d-flex">
                     <button class="btn btn-light me-3" type="submit">
-                        <a href="./sign-up.html">Sign-up</a>
+                        <a href="register">Sign-up</a>
                     </button>
                     <button class="btn btn-light" type="submit">
-                        <a href="./sign-in.html">Sign-in</a>
+                        <a href="login">Sign-in</a>
                     </button>
                 </form>
             </div>
@@ -226,7 +229,7 @@
                 <div class="row text-center g-4">
                     <div class="col-lg-6 col-sm-6">
                         <div class="team-member card-effect">
-                            <img src="../static/photos/frontend2.jpg" alt="">
+                            <img src="{% static 'photos/frontend2.jpg' %}" alt="">
                             <h5 class="mb-0 mt-4">Jemimah Mmboga</h5>
                             <p>Front-End Developer</p>
                             <div class="social-icons">
@@ -238,7 +241,7 @@
                     </div>
                     <div class="col-lg-6 col-sm-6">
                         <div class="team-member card-effect">
-                            <img src="../static/photos/frontend3.jpeg" alt="">
+                            <img src="{% static 'photos/frontend3.jpeg' %}" alt="">
                             <h5 class="mb-0 mt-4">Manson</h5>
                             <p>Back-End Developer</p>
                             <div class="social-icons">
@@ -266,21 +269,21 @@
                 <div class="row g-4">
                     <div class="col-md-4" id="blog-one">
                         <div class="blog-post card-effect">
-                            <img src="../static/photos/blog-one.jpeg" alt="">
+                            <img src="{% static 'photos/blog-one.jpeg' %}" alt="">
                             <h5 class="mt-4"><a href="#">Blog One</a></h5>
                             <p>Lorem ipsum dolor sit amet consectetur nisi necessitatibus repellat distinctio eveniet </p>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="blog-post card-effect" id="blog-two">
-                            <img src="../static/photos/blog-two.jpeg" alt="">
+                            <img src="{% static 'photos/blog-two.jpeg' %}" alt="">
                             <h5 class="mt-4"><a href="#">Blog Two</a></h5>
                             <p>Lorem ipsum dolor sit amet consectetur nisi necessitatibus repellat distinctio eveniet </p>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="blog-post card-effect" id="blog-three">
-                            <img src="../static/photos/blog-three.jpeg" alt="">
+                            <img src="{% static 'photos/blog-three.jpeg' %}" alt="">
                             <h5 class="mt-4"><a href="#">Blog Three</a></h5>
                             <p>Lorem ipsum dolor sit amet consectetur nisi necessitatibus repellat distinctio eveniet </p>
                         </div>
@@ -350,7 +353,7 @@
 
     <!-- Libs JS -->
     <!-- Tabler Core -->
-    <script src="../static/js/tabler.min.js"></script>
-    <script src="../static/js/demo.min.js"></script>
+    <script src="{% static '../static/js/tabler.min.js' %}"></script>
+    <script src="{% static '../static/js/demo.min.js' %}"></script>
   </body>
 </html>
