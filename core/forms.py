@@ -5,57 +5,34 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
+
 class NewUserForm(UserCreationForm):
-    # MANUFACTURING = 'MANU'
-    # PRODUCTION = 'PRO'
-    # AGRICULTURE = 'AGR'
-    # CONSTRUCTION = 'CON'
-    # RETAIL = 'RT'
-    # MINING = 'MIN'
-    # MARKET_RESEARCH = 'MR'
-    # FINANCE = 'FIN'
-    # ECONOMICS = 'ECOS'
-    # EDUCATION = 'EDU'
-    # CHEMICALS = 'CHEM'
-    # ADVERTISING = 'ADS'
-    # GOODS = 'GD'
-    # REAL_ESTATE = 'RE'
-    # HEALTHCARE = 'HC'
-    # FOOD = 'FD'
-    # RESEARCH = 'RES'
-    # FORESTRY = 'FOR'
-    # ENERGY = 'ENE'
-    # ENGINEERING = 'ENG'
-    # TELECOMMUNICATIONS = 'TELE'
-    # INFRASTRUCTURE = 'INFRA'
-    # PHARMACEUTICAL = 'PHARMA'
 
     CATEGORY_CHOICES = (
-        ('Manufacturing', 'Manufacturing'),
-        ('Production', 'Production'),
+        ('Advertising', 'Advertising'),
         ('Agriculture', 'Agriculture'),
+        ('Chemicals', 'Chemicals'),
         ('Construction', 'Construction'),
-        ('Retail', 'Retail'),
-        ('Mining', 'Mining'),
-        ('Market Research', 'Market Research'),
-        ('Finance', 'Finance'),
         ('Economics', 'Economics'),
         ('Education', 'Education'),
-        ('Chemicals', 'Chemicals'),
-        ('Advertising', 'Advertising'),
-        ('Goods', 'Goods'),
-        ('Real Estate', 'Real Estate'),
-        ('Healthcare', 'Healthcare'),
-        ('Food', 'Food'),
-        ('Research', 'Research'),
-        ('Forestry', 'Forestry'),
         ('Energy', 'Energy'),
-        ('Infrastructure', 'Infrastructure'),
         ('Engineering', 'Engineering'),
+        ('Finance', 'Finance'),
+        ('Food', 'Food'),
+        ('Forestry', 'Forestry'),
+        ('Goods', 'Goods'),
+        ('Healthcare', 'Healthcare'),
+        ('Infrastructure', 'Infrastructure'),
+        ('Manufacturing', 'Manufacturing'),
+        ('Market Research', 'Market Research'),
+        ('Mining', 'Mining'),
+        ('Pharmaceuticals', 'Pharmaceuticals'),
+        ('Production', 'Production'),
+        ('Real Estate', 'Real Estate'),
+        ('Research', 'Research'),
+        ('Retail', 'Retail'),
         ('Telecommunications', 'Telecommunications'),
-        ('Pharmaceutical', 'Pharmaceutical')
     )
-
     email = forms.EmailField(required=True)
     company_name = forms.CharField(required=True)
     address = forms.CharField(required=True)

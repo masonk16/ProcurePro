@@ -3,31 +3,33 @@ from core.models import *
 
 
 class UserSerializer(serializers.ModelSerializer):
+    tenders = serializers.PrimaryKeyRelatedField(many=True, queryset=Tender.objects.all())
+    bids = serializers.PrimaryKeyRelatedField(many=True, queryset=Bids.objects.all())
+
     class Meta:
         model = User
         fields = "__all__"
 
 
-
-class TenderSerializer(serializers.Serializer):
-    owner = serializers.ReadOnlyField(source='owner.email')
-    bids = serializers.HyperlinkedRelatedField(
-        many=True,
-        read_only=True,
-        view_name='bid-detail'
-    )
+class TenderSerializer(serializers.ModelSerializer):
+    owner = serializers.ReadOnlyField(source='user.email')
 
     class Meta:
         model = Tender
-        fields = ['url', 'id', 'category', 'description', 'budget', 'opening_date', 'deadline', 'owner', 'bids']
+        fields = ['id', 'category', 'notice_number', 'tender_name', 'requirement_details', 'budget', 'opening_date', 'deadline', 'owner']
+        lookup_field = ['id', 'owner', 'category', 'tender_name']
+
+    def create(self, validated_data):
+        return Tender.objects.create(**validated_data)
 
 
-class BidSerializer(serializers.Serializer):
-    owner = serializers.ReadOnlyField(source='owner.email')
-    tender_id = serializers.HyperlinkedRelatedField(many=True, view_name='tender-detail', read_only=True)
+class BidSerializer(serializers.ModelSerializer):
+    owner = serializers.ReadOnlyField(source='user.email')
 
     class Meta:
         model = Bids
-        fields = ['url', 'id', 'description', 'bid_price', 'submission_date', 'tender_id', 'owner']
+        fields = ['id', 'description', 'bid_price', 'submission_date', 'tender_id', 'owner']
+        lookup_field = ['id', 'owner', 'tender_id']
 
-
+    def create(self, validated_data):
+        return Bids.objects.create(**validated_data)

@@ -1,3 +1,5 @@
+import uuid
+
 from django.http import HttpResponseRedirect
 from rest_framework.renderers import TemplateHTMLRenderer, JSONRenderer
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -49,7 +51,7 @@ def user_login(request):
             if user is not None:
                 login(request, user)
                 messages.info(request, f"You are now logged in as {email}.")
-                return redirect('/users/', kwargs={'pk': user.id})
+                return redirect('/tender/')
             else:
                 messages.error(request, "Invalid username or password.1")
         else:
@@ -105,11 +107,10 @@ class UserDetail(LoginRequiredMixin, generics.RetrieveAPIView):
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
-        return Response({'user': self.object}, template_name='empty.html')
+        return Response({'user': self.object}, template_name='tabs.html')
 
 
 class CreateTender(views.APIView):
-    # serializer_class = BidSerializer
     queryset = Tender.objects.all()
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     renderer_classes = [TemplateHTMLRenderer]
@@ -121,6 +122,7 @@ class CreateTender(views.APIView):
         return Response({'serializer': serializer})
 
     def post(self, request, format=None):
+
         category = request.data['category']
         notice_number = request.data['notice_number']
         tender_name = request.data['tender_name']
@@ -133,16 +135,35 @@ class CreateTender(views.APIView):
             'tender_name': tender_name,
             'requirement_details': requirement_details,
             'budget': budget,
-            'deadline': deadline
+            'deadline': deadline,
         }
         serializer = TenderSerializer(data=data)
-        print(request.data)
+        print(serializer)
         if serializer.is_valid():
-            serializer.save()
+            serializer.save(owner=self.request.user)
             return redirect('/tender/')
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
+class UserTenderList(generics.ListAPIView):
+    login_url = '/login/'
+    redirect_field_name = 'login'
+
+    queryset = Tender.objects.all()
+    renderer_classes = [TemplateHTMLRenderer]
+    serializer = TenderSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    template_name = 'tables.html'
+
+    def get(self, owner):
+        """
+        This view should return a list of all the Tenders for the currently authenticated user.
+        """
+        user = self.request.user
+        print(user)
+        tenders = Tender.objects.filter(owner=user)
+        return Response({'tenders': tenders})
 
 
 class TenderList(generics.ListAPIView):
@@ -167,9 +188,24 @@ class TenderDetail(LoginRequiredMixin, generics.ListCreateAPIView):
     serializer_class = TenderSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
-    def get(self, request, *args, **kwargs):
-        tenders = Tender.objects.all()
-        return Response({'tenders': tenders}, template_name='tender-detail.html')
+    def get(self, request, pk, *args, **kwargs):
+        tenders = Tender.objects.filter(id=pk)
+        return Response({'tenders': tenders}, template_name='tabs.html')
+
+
+class UserTenderDetail(LoginRequiredMixin, generics.ListCreateAPIView):
+    login_url = '/login/'
+    redirect_field_name = 'login'
+
+    queryset = Tender.objects.all()
+    renderer_classes = [TemplateHTMLRenderer]
+    serializer_class = TenderSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    def get(self, request, pk, *args, **kwargs):
+        tenders = Tender.objects.filter(id=pk)
+        bids = Bids.objects.filter(tender_id=pk)
+        return Response({'tenders': tenders, 'bids': bids}, template_name='tabs.html')
 
 
 class CreateBid(views.APIView):
@@ -193,14 +229,33 @@ class CreateBid(views.APIView):
             'bid_price': bid_price,
             'tender_id': tender_id
         }
-
         serializer = BidSerializer(data=data)
-        print(request.data)
+        print(serializer)
         if serializer.is_valid():
-            serializer.save()
-            return redirect('/tender/')
+            serializer.save(owner=self.request.user)
+            return redirect('/user/bids/')
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class UserBidsList(generics.ListAPIView):
+    login_url = '/login/'
+    redirect_field_name = 'login'
+
+    queryset = Bids.objects.all()
+    renderer_classes = [TemplateHTMLRenderer]
+    serializer = BidSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    template_name = 'tables.html'
+
+    def get(self, owner):
+        """
+        This view should return a list of all the Tenders for the currently authenticated user.
+        """
+        user = self.request.user
+        print(user)
+        bids = Bids.objects.filter(owner=user)
+        return Response({'bids': bids})
 
 
 class BidList(LoginRequiredMixin, generics.ListCreateAPIView):
@@ -216,7 +271,7 @@ class BidList(LoginRequiredMixin, generics.ListCreateAPIView):
         serializer.save(owner=self.request.user)
 
     def get(self, request, *args, **kwargs):
-        return Response({'bids': Bids.objects.all()}, template_name='bids-listing.html')
+        return Response({'bids': Bids.objects.all()}, template_name='tabs.html')
 
 
 class BidDetail(LoginRequiredMixin, generics.RetrieveUpdateDestroyAPIView):
@@ -229,6 +284,6 @@ class BidDetail(LoginRequiredMixin, generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly,
                           IsOwnerOrReadOnly]
 
-    def get(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        return Response({'bid': self.object}, template_name='bid-detail.html')
+    def get(self, request, pk, *args, **kwargs):
+        tenders = Bids.objects.filter(id=pk)
+        return Response({'tenders': tenders}, template_name='tabs.html')
