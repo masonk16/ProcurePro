@@ -68,9 +68,9 @@
                                 Blog
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a href="#blog" class="dropdown-item">Blog #1</a></li>
-                                <li><a href="#blog" class="dropdown-item">Blog #2</a></li>
-                                <li><a href="#blog" class="dropdown-item">Blog #3</a></li>
+                                <li><a href="/blogone/" class="dropdown-item">Blog #1</a></li>
+                                <li><a href="/blogtwo/" class="dropdown-item">Blog #2</a></li>
+                                <li><a href="/blogthree/" class="dropdown-item">Blog #3</a></li>
 
                             </ul>
                         </li>
@@ -83,10 +83,10 @@
                 </div>
                 <form class="d-flex">
                     <button class="btn btn-light me-3" type="submit">
-                        <a href="register">Sign-up</a>
+                        <a href="/register/">Sign-up</a>
                     </button>
                     <button class="btn btn-light" type="submit">
-                        <a href="login">Sign-in</a>
+                        <a href="/login/">Sign-in</a>
                     </button>
                 </form>
             </div>
@@ -176,9 +176,9 @@
                                     <i class='bx bxs-shield-alt-2' ></i>
                                 </div>
                                 <div>
-                                    <h5>Feature</h5>
+                                    <h5>Schedule of events</h5>
                                     <p>
-                                        Tenderspage developed a monitoring tool that optimize your time management.
+                                        The tender will include a schedule of events outlining the key dates and milestones in the tender process, such as the date for submission of proposals, the date for the opening of proposals, and the date for the award of the contract.
                                     </p>
                                 </div>
                             </div>
@@ -188,9 +188,9 @@
                                     <i class='bx bxs-doughnut-chart' ></i>
                                 </div>
                                 <div>
-                                    <h5>Feature</h5>
+                                    <h5>Evaluation criteria</h5>
                                     <p>
-                                        Tenderspage developed a monitoring tool that optimize your time management.
+                                        The tender will outline the criteria that will be used to evaluate proposals, such as price, quality, and delivery timelines.
                                     </p>
                                 </div>
                             </div>
@@ -200,9 +200,9 @@
                                     <i class='bx bxs-user-circle' ></i>
                                 </div>
                                 <div>
-                                    <h5>Feature</h5>
+                                    <h5>Terms and conditions</h5>
                                     <p>
-                                        Tenderspage developed a monitoring tool that optimize your time management.
+                                        The tender will include terms and conditions outlining the legal obligations of the organization issuing the tender and the supplier or contractor who is awarded the contract.
                                     </p>
                                 </div>
                             </div>
@@ -262,30 +262,29 @@
                     <div class="col-md-8 mx-auto text-center">
                         <h6 class="text-primary">BLOG</h6>
                         <h1>Latest News From The Blog</h1>
-                        <p>Lorem ipsum dolor sit amet consectetur nisi necessitatibus repellat distinctio eveniet eaque fuga
-                            in cumque optio consectetur harum vitae debitis sapiente praesentium aperiam aut</p>
+                        <p>Welcome to our Tender Blog, where we will be discussing the latest news and developments in the field of tenders and bidding. Our blog is designed for businesses, organizations and individuals interested in participating in the tender process, either as a supplier or a contractor. Here you will find valuable information and resources that will help you navigate the complex world of tenders and increase your chances of success.</p>
                     </div>
                 </div>
                 <div class="row g-4">
                     <div class="col-md-4" id="blog-one">
                         <div class="blog-post card-effect">
                             <img src="{% static 'photos/blog-one.jpeg' %}" alt="">
-                            <h5 class="mt-4"><a href="#">Blog One</a></h5>
-                            <p>Lorem ipsum dolor sit amet consectetur nisi necessitatibus repellat distinctio eveniet </p>
+                            <h5 class="mt-4"><a href="/blogone/">Blog One</a></h5>
+                            <p>Basic knowledge about tenders</p>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="blog-post card-effect" id="blog-two">
                             <img src="{% static 'photos/blog-two.jpeg' %}" alt="">
-                            <h5 class="mt-4"><a href="#">Blog Two</a></h5>
-                            <p>Lorem ipsum dolor sit amet consectetur nisi necessitatibus repellat distinctio eveniet </p>
+                            <h5 class="mt-4"><a href="/blogtwo/">Blog Two</a></h5>
+                            <p>Why are tenders Important</p>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="blog-post card-effect" id="blog-three">
                             <img src="{% static 'photos/blog-three.jpeg' %}" alt="">
-                            <h5 class="mt-4"><a href="#">Blog Three</a></h5>
-                            <p>Lorem ipsum dolor sit amet consectetur nisi necessitatibus repellat distinctio eveniet </p>
+                            <h5 class="mt-4"><a href="/blogthree/">Blog Three</a></h5>
+                            <p>How To get good tenders and bids</p>
                         </div>
                     </div>
                 </div>
@@ -296,33 +295,19 @@
         <!-- CONTACT -->
         <section id="contact">
             <div class="container">
-                <div class="row mb-5">
+                <div class="row mb-2">
                     <div class="col-md-8 mx-auto text-center">
                         <h6 class="text-primary">CONTACT</h6>
                         <h1>Get In Touch</h1>
-                        <p>Lorem ipsum dolor sit amet consectetur nisi necessitatibus repellat distinctio eveniet eaque fuga
-                            in cumque optio consectetur harum vitae debitis sapiente praesentium aperiam aut</p>
+                        <p>We are always glad to hear from you</p>
                     </div>
                 </div>
 
-                <form action="" class="row g-3 justify-content-center">
-                    <div class="col-md-5">
-                        <input type="text" class="form-control" placeholder="Full Name">
-                    </div>
-                    <div class="col-md-5">
-                        <input type="text" class="form-control" placeholder="Enter E-mail">
-                    </div>
-                    <div class="col-md-10">
-                        <input type="text" class="form-control" placeholder="Enter Subject">
-                    </div>
-                    <div class="col-md-10">
-                        <textarea name="" id="" cols="30" rows="5" class="form-control"
-                            placeholder="Enter Message"></textarea>
-                    </div>
+                <div class="row justify-content-center">
                     <div class="col-md-10 d-grid">
-                        <button class="btn btn-primary">Contact</button>
+                        <button class="btn btn-info" ><a href="mailto:procurementpro0@gmail.com?subject=Tender%20Services%20Provided" style="color:aliceblue">Send us an email</a></button>
                     </div>
-                </form>
+                </div>
 
             </div>
         </section><!-- CONTACT -->
@@ -355,5 +340,6 @@
     <!-- Tabler Core -->
     <script src="{% static '../static/js/tabler.min.js' %}"></script>
     <script src="{% static '../static/js/demo.min.js' %}"></script>
+
   </body>
 </html>

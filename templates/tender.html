@@ -1,247 +1,45 @@
-<!doctype html>
-<!--
-* Tabler - Premium and Open Source dashboard template with responsive and high quality UI.
-* @version 1.0.0-beta5
-* @link https://tabler.io
-* Copyright 2018-2022 The Tabler Authors
-* Copyright 2018-2022 codecalm.net Paweł Kuna
-* Licensed under MIT (https://github.com/tabler/tabler/blob/master/LICENSE)
--->
-<html lang="en">
-  <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <title>Closed Tenders - ProcurePro</title>
-    <!-- CSS files -->
-    <link href="../static/css/tabler.min.css" rel="stylesheet"/>
-    <link href="../static/css/tabler-flags.min.css" rel="stylesheet"/>
-    <link href="../static/css/tabler-payments.min.css" rel="stylesheet"/>
-    <link href="../static/css/tabler-vendors.min.css" rel="stylesheet"/>
-    <link href="../static/css/demo.min.css" rel="stylesheet"/>
-
-    <!--Font awesome CDN-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
-
-    <!--DATEPICKER-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-
-
-  </head>
-  <body >
-    <div class="wrapper">
-      <header class="navbar navbar-expand-md navbar-light d-print-none">
-        <div class="container-xl">
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
-            <a href=".">
-              <img src="../static/logo.png" width="250" height="100" alt="Tabler" class="navbar-brand-image">
-            </a>
-          </h1>
-          <div class="navbar-nav flex-row order-md-last">
-
-            <div class="nav-item dropdown d-none d-md-flex me-3">
-              <a href="#" class="nav-link px-0" data-bs-toggle="dropdown" tabindex="-1" aria-label="Show notifications">
-                <!-- Download SVG icon from http://tabler-icons.io/i/bell -->
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 5a2 2 0 0 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6" /><path d="M9 17v1a3 3 0 0 0 6 0v-1" /></svg>
-                <span class="badge bg-red"></span>
-              </a>
-              <div class="dropdown-menu dropdown-menu-end dropdown-menu-card">
-                <div class="card">
-                  <div class="card-body">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus ad amet consectetur exercitationem fugiat in ipsa ipsum, natus odio quidem quod repudiandae sapiente. Amet debitis et magni maxime necessitatibus ullam.
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="nav-item dropdown">
-              <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown" aria-label="Open user menu">
-                <span class="avatar avatar-sm" style="background-image: url(../static/avatars/000m.jpg)"></span>
-                <div class="d-none d-xl-block ps-2">
-                  <div>Company XYZ</div>
-                </div>
-              </a>
-              <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                <a href="#" class="dropdown-item">Profile & account</a>
-                <a href="#" class="dropdown-item">Feedback</a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">Settings</a>
-                <a href="#" class="dropdown-item">Logout</a>
-              </div>
-            </div>
-          </div>
+{% extends 'main.html' %}
+{% load static %}
+<div class="page-wrapper">
+  {% block content %}
+  <div class="container-xl">
+    <!-- Page title -->
+    <div class="page-header d-print-none">
+      <div class="row align-items-center">
+        <div class="col">
+          <h2 class="page-title">
+            {{ user.company_name }}
+          </h2>
         </div>
-      </header>
-      <div class="navbar-expand-md">
-        <div class="collapse navbar-collapse" id="navbar-menu">
-          <div class="navbar navbar-light">
-            <div class="container-xl">
-              <ul class="navbar-nav">
-                <li class="nav-item">
-                  <a class="nav-link" href="./index.html" >
-                    <span class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/home -->
-                      <img class="icon" src="../static/icons/home.svg">
-                    </span>
-                    <span class="nav-link-title">
-                      Home
-                    </span>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#navbar-base" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
-                    <span class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/package -->
-                      <img class="icon" src="../static/icons/tenders.svg">
-                    </span>
-                    <span class="nav-link-title">
-                      My Tenders
-                    </span>
-                  </a>
-                </li>
-                <li class="nav-item active">
-                  <a class="nav-link" href="./form-elements.html" >
-                    <span class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/checkbox -->
-                      <img class="icon" src="../static/icons/closed.svg">
-                    </span>
-                    <span class="nav-link-title">
-                      Closed Tenders
-                    </span>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#navbar-extra" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
-                    <span class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/star -->
-                      <img class="icon" src="../static/icons/suppliers.svg">
-                    </span>
-                    <span class="nav-link-title">
-                      Suppliers / Vendors
-                    </span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="page-wrapper">
-        <div class="container-xl">
-          <!-- Page title -->
-          <div class="page-header d-print-none">
-            <div class="row align-items-center">
-              <div class="col">
-                <h2 class="page-title">
-                  Generate Tenders
-                </h2>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="page-body">
-          <div class="container-xl">
-            <!--FORM--->
-            <section id="form">
-                <div class="container-xl">
-                    <form action="" class="row g-3 justify-content-center">
-                        <div class="col-md-5">
-                            <label for="form" class="form-label">Sector</label>
-                            <input type="text" class="form-control" placeholder="Sector">
-                        </div>
-                        <div class="col-md-5">
-                            <label for="form" class="form-label">Category</label>
-                            <input type="text" class="form-control" placeholder="Category">
-                        </div>
-                        <div class="col-md-10">
-                            <label for="form" class="form-label">Reference Number</label>
-                            <input type="text" class="form-control" placeholder="Enter Reference Number">
-                        </div>
-                        <div class="col-md-10">
-                            <label for="form" class="form-label">Budget</label>
-                            <input type="text" class="form-control" placeholder="Enter Budget">
-                        </div>
-                        <div class="col-md-10">
-                            <label for="form" class="form-label">Descripion</label>
-                            <textarea name="" id="" cols="30" rows="5" class="form-control"
-                                placeholder="Enter Description"></textarea>
-                        </div>
-                        <div class="col-md-10">
-                            <label class="form-label" for="customFile">Document Upload</label>
-                            <input type="file" class="form-control" id="customFile" />
-                        </div>
-                        <div class="col-md-10">
-                            <label class="form-label" for="customFile">Submission Deadline</label>
-                            <form>
-                                <div class="row form-group">
-                                    <div class="input-group date" id="datepicker">
-                                        <input type="text" class="form-control">
-                                        <span class="input-group-append">
-                                            <span class="input-group-text bg-white">
-                                                <i class="fa fa-calendar pb-2"></i>
-                                            </span>
-                                        </span>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-
-                        <div class="container col-md-5 d-grid my-4">
-                            <button class="btn" style="background-color: rgb(22, 94, 148);">Submit</button>
-                        </div>
-                    </form>
-                </div>
-            </section>
-            <!--FORM--->
-          </div>
-        </div>
-       <footer class="footer footer-transparent d-print-none">
-          <div class="container-xl">
-            <div class="row text-center align-items-center flex-row-reverse">
-
-              <div class="col-12 col-lg-auto mt-3 mt-lg-0">
-                <ul class="list-inline list-inline-dots mb-0">
-                  <li class="list-inline-item">
-                    Copyright &copy; 2022
-                    <a href="." class="link-secondary">ProcurePro</a>.
-                    All rights reserved.
-                  </li>
-                  <li class="list-inline-item">
-                    <a href="./changelog.html" class="link-secondary" rel="noopener">
-                      v1.0.0-beta5
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </footer>
       </div>
     </div>
-    <!-- Libs JS -->
-    <!-- Tabler Core -->
-    <script src="../static/js/tabler.min.js"></script>
-    <script src="../static/js/demo.min.js"></script>
-
-    <script type="text/javascript">
-        $(".sidebar ul li").on('click', function() {
-            $(".sidebar ul li.active").removeClass('active');
-            $(this).addClass('active');
-        });
-
-        $('.open-btn').on('click', function() {
-            $('.sidebar').addClass('active');
-        });
-
-        $('.close-btn').on('click', function() {
-            $('.sidebar').removeClass('active');
-        });
-
-        $(function () {
-        $('#datepicker').datepicker();
-        });
-    </script>
-  </body>
-</html>
+  </div>
+  <div class="page-body">
+    <div class="container-xl">
+      {% load rest_framework %}
+      <form action="." method="POST">
+      <div class="modal-blur" id="modal-report" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">New Tender</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            {% csrf_token %}
+            {% render_form serializer %}
+            </div>
+            <div class="modal-footer">
+              <a href="#" class="btn btn-link link-secondary" data-bs-dismiss="modal">
+                Cancel
+              </a>
+              <input type="submit" value="Save" class="btn btn-primary ms-auto" data-bs-dismiss="modal"/>
+            </div>
+          </div>
+        </div>
+      </div>
+      </form>
+      {% endblock %}
+    </div>
+    
+</div>
