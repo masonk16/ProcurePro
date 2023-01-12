@@ -44,55 +44,6 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractUser):
-    MANUFACTURING = 'MANU'
-    PRODUCTION = 'PRO'
-    AGRICULTURE = 'AGR'
-    CONSTRUCTION = 'CON'
-    RETAIL = 'RT'
-    MINING = 'MIN'
-    MARKET_RESEARCH = 'MR'
-    FINANCE = 'FIN'
-    ECONOMICS = 'ECOS'
-    EDUCATION = 'EDU'
-    CHEMICALS = 'CHEM'
-    ADVERTISING = 'ADS'
-    GOODS = 'GD'
-    REAL_ESTATE = 'RE'
-    HEALTHCARE = 'HC'
-    FOOD = 'FD'
-    RESEARCH = 'RES'
-    FORESTRY = 'FOR'
-    ENERGY = 'ENE'
-    ENGINEERING = 'ENG'
-    TELECOMMUNICATIONS = 'TELE'
-    INFRASTRUCTURE = 'INFRA'
-    PHARMACEUTICAL = 'PHARMA'
-
-    CATEGORY_CHOICES = [
-        (MANUFACTURING, 'Manufacturing'),
-        (PRODUCTION, 'Production'),
-        (AGRICULTURE, 'Agriculture'),
-        (CONSTRUCTION, 'Construction'),
-        (RETAIL, 'Retail'),
-        (MINING, 'Mining'),
-        (MARKET_RESEARCH, 'Market Research'),
-        (FINANCE, 'Finance'),
-        (ECONOMICS, 'Economics'),
-        (EDUCATION, 'Education'),
-        (CHEMICALS, 'Chemicals'),
-        (ADVERTISING, 'Advertising'),
-        (GOODS, 'Goods'),
-        (REAL_ESTATE, 'Real Estate'),
-        (HEALTHCARE, 'Healthcare'),
-        (FOOD, 'Food'),
-        (RESEARCH, 'Research'),
-        (FORESTRY, 'Forestry'),
-        (ENERGY, 'Energy'),
-        (INFRASTRUCTURE, 'Infrastructure'),
-        (ENGINEERING, 'Engineering'),
-        (TELECOMMUNICATIONS, 'Telecommunications'),
-        (PHARMACEUTICAL, 'Pharmaceutical')
-    ]
     username = None
     first_name = None
     last_name = None
@@ -136,28 +87,50 @@ class Contractor(models.Model):
 
 
 class Tender(models.Model):
-    id = models.AutoField(primary_key=True)
-    category = models.CharField(max_length=200, null=True)
+    CATEGORY_CHOICES = (
+        ('Advertising', 'Advertising'),
+        ('Agriculture', 'Agriculture'),
+        ('Chemicals', 'Chemicals'),
+        ('Construction', 'Construction'),
+        ('Economics', 'Economics'),
+        ('Education', 'Education'),
+        ('Energy', 'Energy'),
+        ('Engineering', 'Engineering'),
+        ('Finance', 'Finance'),
+        ('Food', 'Food'),
+        ('Forestry', 'Forestry'),
+        ('Goods', 'Goods'),
+        ('Healthcare', 'Healthcare'),
+        ('Infrastructure', 'Infrastructure'),
+        ('Manufacturing', 'Manufacturing'),
+        ('Market Research', 'Market Research'),
+        ('Mining', 'Mining'),
+        ('Pharmaceuticals', 'Pharmaceuticals'),
+        ('Production', 'Production'),
+        ('Real Estate', 'Real Estate'),
+        ('Research', 'Research'),
+        ('Retail', 'Retail'),
+        ('Telecommunications', 'Telecommunications'),
+    )
+    category = models.CharField(choices=CATEGORY_CHOICES, max_length=200, null=True)
     notice_number = models.CharField(max_length=200, null=True)
     tender_name = models.CharField(max_length=200, null=True)
     requirement_details = models.TextField(null=True)
     budget = models.IntegerField(null=True)
     deadline = models.DateTimeField(null=True)
     opening_date = models.DateTimeField(verbose_name='opening_date', auto_now_add=True)
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL, default=None, null=True, related_name='tenders', on_delete=models.CASCADE)
+    owner = models.CharField(default=None, null=True, max_length=200)
 
     def __str__(self):
         return str(self.id)
 
 
-
 class Bids(models.Model):
-    id = models.AutoField(primary_key=True)
-    description = models.TextField(max_length=200, null=True)
+    description = models.TextField(null=True)
     bid_price = models.IntegerField(null=True)
     submission_date = models.DateTimeField(verbose_name='submission_date', auto_now_add=True)
     tender_id = models.ForeignKey(Tender, default=None, related_name='bids', null=True, on_delete=models.CASCADE)
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='bids', default=None, null=True,  on_delete=models.CASCADE)
+    owner = models.CharField(default=None, null=True, max_length=200)
 
     def __str__(self):
         return str(self.id)

@@ -1,6 +1,7 @@
 db.sqlite3
 ProcurePro/settings.py
 settings.py
+requirements.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
