@@ -6,55 +6,55 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 class NewUserForm(UserCreationForm):
-    MANUFACTURING = 'MANU'
-    PRODUCTION = 'PRO'
-    AGRICULTURE = 'AGR'
-    CONSTRUCTION = 'CON'
-    RETAIL = 'RT'
-    MINING = 'MIN'
-    MARKET_RESEARCH = 'MR'
-    FINANCE = 'FIN'
-    ECONOMICS = 'ECOS'
-    EDUCATION = 'EDU'
-    CHEMICALS = 'CHEM'
-    ADVERTISING = 'ADS'
-    GOODS = 'GD'
-    REAL_ESTATE = 'RE'
-    HEALTHCARE = 'HC'
-    FOOD = 'FD'
-    RESEARCH = 'RES'
-    FORESTRY = 'FOR'
-    ENERGY = 'ENE'
-    ENGINEERING = 'ENG'
-    TELECOMMUNICATIONS = 'TELE'
-    INFRASTRUCTURE = 'INFRA'
-    PHARMACEUTICAL = 'PHARMA'
+    # MANUFACTURING = 'MANU'
+    # PRODUCTION = 'PRO'
+    # AGRICULTURE = 'AGR'
+    # CONSTRUCTION = 'CON'
+    # RETAIL = 'RT'
+    # MINING = 'MIN'
+    # MARKET_RESEARCH = 'MR'
+    # FINANCE = 'FIN'
+    # ECONOMICS = 'ECOS'
+    # EDUCATION = 'EDU'
+    # CHEMICALS = 'CHEM'
+    # ADVERTISING = 'ADS'
+    # GOODS = 'GD'
+    # REAL_ESTATE = 'RE'
+    # HEALTHCARE = 'HC'
+    # FOOD = 'FD'
+    # RESEARCH = 'RES'
+    # FORESTRY = 'FOR'
+    # ENERGY = 'ENE'
+    # ENGINEERING = 'ENG'
+    # TELECOMMUNICATIONS = 'TELE'
+    # INFRASTRUCTURE = 'INFRA'
+    # PHARMACEUTICAL = 'PHARMA'
 
-    CATEGORY_CHOICES = [
-        (MANUFACTURING, 'Manufacturing'),
-        (PRODUCTION, 'Production'),
-        (AGRICULTURE, 'Agriculture'),
-        (CONSTRUCTION, 'Construction'),
-        (RETAIL, 'Retail'),
-        (MINING, 'Mining'),
-        (MARKET_RESEARCH, 'Market Research'),
-        (FINANCE, 'Finance'),
-        (ECONOMICS, 'Economics'),
-        (EDUCATION, 'Education'),
-        (CHEMICALS, 'Chemicals'),
-        (ADVERTISING, 'Advertising'),
-        (GOODS, 'Goods'),
-        (REAL_ESTATE, 'Real Estate'),
-        (HEALTHCARE, 'Healthcare'),
-        (FOOD, 'Food'),
-        (RESEARCH, 'Research'),
-        (FORESTRY, 'Forestry'),
-        (ENERGY, 'Energy'),
-        (INFRASTRUCTURE, 'Infrastructure'),
-        (ENGINEERING, 'Engineering'),
-        (TELECOMMUNICATIONS, 'Telecommunications'),
-        (PHARMACEUTICAL, 'Pharmaceutical')
-    ]
+    CATEGORY_CHOICES = (
+        ('Manufacturing', 'Manufacturing'),
+        ('Production', 'Production'),
+        ('Agriculture', 'Agriculture'),
+        ('Construction', 'Construction'),
+        ('Retail', 'Retail'),
+        ('Mining', 'Mining'),
+        ('Market Research', 'Market Research'),
+        ('Finance', 'Finance'),
+        ('Economics', 'Economics'),
+        ('Education', 'Education'),
+        ('Chemicals', 'Chemicals'),
+        ('Advertising', 'Advertising'),
+        ('Goods', 'Goods'),
+        ('Real Estate', 'Real Estate'),
+        ('Healthcare', 'Healthcare'),
+        ('Food', 'Food'),
+        ('Research', 'Research'),
+        ('Forestry', 'Forestry'),
+        ('Energy', 'Energy'),
+        ('Infrastructure', 'Infrastructure'),
+        ('Engineering', 'Engineering'),
+        ('Telecommunications', 'Telecommunications'),
+        ('Pharmaceutical', 'Pharmaceutical')
+    )
 
     email = forms.EmailField(required=True)
     company_name = forms.CharField(required=True)
