@@ -1,27 +1,73 @@
 {% extends 'main.html' %}
 {% load static %}
-
+{% block content %}
+{% load rest_framework %}
   <div class="page-wrapper">
-    {% load content %}
     <div class="container-xl">
-    </div>
-    <div class="page-body">
-      <div class="container-xl d-flex flex-column justify-content-center">
-        <div class="empty">
-          <div class="empty-img"><img src="{% static 'illustrations/undraw_printing_invoices_5r4r.svg' %}" height="128" alt="">
-          </div>
-          <p class="empty-title">No results found</p>
-          <p class="empty-subtitle text-muted">
-            Go ahead and post your first tender notice!
-          </p>
-          <div class="empty-action">
-            <a href="./." class="btn btn-primary">
-              <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
-              <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>
-              Upload your first tender
-            </a>
+          <!-- Page title -->
+          <div class="page-header d-print-none">
+            <div class="row align-items-center">
+              <div class="col">
+                <h2 class="page-title">
+                  {{ user.company_name }} Tenders
+                </h2>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-      {% endblock %}
+    <div class="container-xl">
+    <div class="page-body">
+      <div class="col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">Tenders</h3>
+                  </div>
+                  <div class="table-responsive">
+                    {% for tender in tenders %}
+                    <table class="table card-table table-vcenter text-nowrap datatable">
+                      <thead>
+                        <tr>
+                          <th class="w-1"><input class="form-check-input m-0 align-middle" type="checkbox" aria-label="Select all invoices"></th>
+                          <th class="w-1">Tender ID</th>
+                          <th>Tender Name</th>
+                          <th>Category</th>
+                          <th>Notice No.</th>
+                          <th>Created</th>
+                          <th>Deadline</th>
+                          <th>Budget</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><input class="form-check-input m-0 align-middle" type="checkbox" aria-label="Select invoice"></td>
+                          <td><span class="text-muted">{{ tender.id }}</span></td>
+                          <td><a href="{% url 'main:tender-detail' tender.id %}" class="text-reset" tabindex="-1">{{ tender.tender_name }}</a></td>
+                          <td>
+                            {{ tender.category }}
+                          </td>
+                          <td>
+                            {{ tender.notice_number }}
+                          </td>
+                          <td>
+                            {{ tender.opening_date.date }}
+                          </td>
+                          <td>
+                            {{ tender.deadline.date }}
+                          </td>
+                          <td>{{ tender.budget }}</td>
+                          <td class="text-end">
+                              <a href="{% url 'main:tender-detail' tender.id %}" class="btn btn-primary">View</a>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+
     </div>
+    </div>
+  </div>
+{% endblock %}

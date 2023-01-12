@@ -14,13 +14,13 @@
         </h2>
       </div>
       <!-- Page title actions -->
+      {% if user.user_type == "Contractors" %}
       <div class="col-auto ms-auto d-print-none">
-        <a href="/tender/create/" class="btn btn-primary">
-          <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
-          <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>
+        <a href="/tenders/create/" class="btn btn-primary">
           Post a tender
         </a>
       </div>
+      {% endif %}
     </div>
   </div>
 </div>
@@ -81,16 +81,6 @@
             </label>
             <div class="small text-muted">Only show tenders available for collaboration.</div>
           </div>
-          <div class="form-label">Location</div>
-          <div class="mb-4">
-            <select class="form-select">
-              <option>Anywhere</option>
-              <option>London</option>
-              <option>San Francisco</option>
-              <option>New York</option>
-              <option>Berlin</option>
-            </select>
-          </div>
           <div class="mt-5">
             <button class="btn btn-primary w-100">
               Confirm changes
@@ -117,7 +107,7 @@
                   <div class="card-body ps-0">
                     <div class="row"> 
                       <div class="col">
-                        <h3 class="mb-0"><a href="#">{{ tender.category }}</a></h3>
+                        <h3 class="mb-0"><a href="{% url 'main:tender-detail' tender.id %}">{{ tender.id }} {{ tender.tender_name }}</a></h3>
                       </div>
                     </div>
                     <div class="row">
@@ -125,14 +115,14 @@
                         <div class="mt-3 list-inline list-inline-dots mb-0 text-muted d-sm-block d-none">
                           <div class="list-inline-item">
                             <img class="icon" src="../static/icons/company.svg">
-                            {{ tender.owner }}</div>
-                          <div class="list-inline-item"><!-- Download SVG icon from http://tabler-icons.io/i/map-pin -->
-                            <img class="icon" src="../static/icons/location.svg">
-                            Colorado, USA</div>
-                        </div>
-                        <div class="list-inline-item"><!-- Download SVG icon from http://tabler-icons.io/i/license -->
+                            {{ tender.category }}</div>
+                          <div class="list-inline-item"><!-- Download SVG icon from http://tabler-icons.io/i/license -->
                             <img class="icon" src="../static/icons/deadline.svg">
                             {{ tender.deadline.date }}</div>
+                            <a href="{% url 'main:tender-detail' tender.id %}" class="btn btn-primary">View Details</a>
+
+                        </div>
+
                       </div>
                     </div>
                   </div>
@@ -147,5 +137,7 @@
       </div>
     </div>
   </div>
-  {% endblock %}
+
 </div>
+</div>
+{% endblock %}

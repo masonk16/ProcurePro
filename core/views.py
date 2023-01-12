@@ -1,4 +1,3 @@
-import uuid
 
 from django.http import HttpResponseRedirect
 from rest_framework.renderers import TemplateHTMLRenderer, JSONRenderer
@@ -16,12 +15,25 @@ from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import NewUserForm
 from django.contrib.auth.forms import AuthenticationForm
-import pdb
+
+
 User = get_user_model()
 
 
 def index(request):
-    return render(request=request, template_name="index.html")
+    return render(request=request, template_name="landing-page.html")
+
+
+def blog_one(request):
+    return render(request=request, template_name="blog-one.html")
+
+
+def blog_two(request):
+    return render(request=request, template_name="blog-two.html")
+
+
+def blog_three(request):
+    return render(request=request, template_name="blog-three.html")
 
 
 def register_user(request):
@@ -51,7 +63,7 @@ def user_login(request):
             if user is not None:
                 login(request, user)
                 messages.info(request, f"You are now logged in as {email}.")
-                return redirect('/tender/')
+                return redirect('/tenders/')
             else:
                 messages.error(request, "Invalid username or password.1")
         else:
@@ -85,9 +97,10 @@ class UserList(LoginRequiredMixin, generics.ListAPIView):
     queryset = User.objects.all()
     renderer_classes = [TemplateHTMLRenderer, JSONRenderer]
     serializer_class = UserSerializer
+    template_name = 'users.html'
 
     def get(self, request, *args, **kwargs):
-        return Response({'users': User.objects.all()}, template_name='users.html')
+        return Response({'users': User.objects.all()})
 
 
 class UserDetail(LoginRequiredMixin, generics.RetrieveAPIView):
@@ -100,6 +113,7 @@ class UserDetail(LoginRequiredMixin, generics.RetrieveAPIView):
     queryset = User.objects.all()
     renderer_classes = [TemplateHTMLRenderer]
     serializer_class = UserSerializer
+    template_name = 'profile.html'
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -107,7 +121,7 @@ class UserDetail(LoginRequiredMixin, generics.RetrieveAPIView):
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
-        return Response({'user': self.object}, template_name='tabs.html')
+        return Response({'user': self.object})
 
 
 class CreateTender(views.APIView):
@@ -154,7 +168,7 @@ class UserTenderList(generics.ListAPIView):
     renderer_classes = [TemplateHTMLRenderer]
     serializer = TenderSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    template_name = 'tables.html'
+    template_name = 'my-tenders.html'
 
     def get(self, owner):
         """
@@ -213,7 +227,7 @@ class CreateBid(views.APIView):
     queryset = Bids.objects.all()
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'empty.html'
+    template_name = 'bidding.html'
 
     def get(self, request, format=None):
 
@@ -246,7 +260,7 @@ class UserBidsList(generics.ListAPIView):
     renderer_classes = [TemplateHTMLRenderer]
     serializer = BidSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    template_name = 'tables.html'
+    template_name = 'bids-listing.html'
 
     def get(self, owner):
         """
@@ -258,20 +272,20 @@ class UserBidsList(generics.ListAPIView):
         return Response({'bids': bids})
 
 
-class BidList(LoginRequiredMixin, generics.ListCreateAPIView):
-    login_url = '/login/'
-    redirect_field_name = 'login'
-
-    queryset = Bids.objects.all()
-    renderer_classes = [TemplateHTMLRenderer]
-    serializer_class = BidSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
-
-    def get(self, request, *args, **kwargs):
-        return Response({'bids': Bids.objects.all()}, template_name='tabs.html')
+# class BidList(LoginRequiredMixin, generics.ListCreateAPIView):
+#     login_url = '/login/'
+#     redirect_field_name = 'login'
+#
+#     queryset = Bids.objects.all()
+#     renderer_classes = [TemplateHTMLRenderer]
+#     serializer_class = BidSerializer
+#     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+#
+#     def perform_create(self, serializer):
+#         serializer.save(owner=self.request.user)
+#
+#     def get(self, request, *args, **kwargs):
+#         return Response({'bids': Bids.objects.all()}, template_name='bids-listing.html')
 
 
 class BidDetail(LoginRequiredMixin, generics.RetrieveUpdateDestroyAPIView):

@@ -1,16 +1,14 @@
 {% extends 'base.html' %}
-
 {% load static %}
-
   <body  class=" d-flex flex-column bg-white">
   {% block content %}
   {% load crispy_forms_tags %}
-    <script src="{% static '../static/js/demo-theme.min.js?1668288743' %}"></script>
+    <script src="../static/js/demo-theme.min.js?1668288743"></script>
     <div class="row g-0 flex-fill">
       <div class="col-12 col-lg-6 col-xl-4 border-top-wide border-primary d-flex flex-column justify-content-center">
         <div class="container container-tight my-5 px-lg-5">
           <div class="text-center">
-            <a href="." class="navbar-brand navbar-brand-autodark"><img src="{% static 'logo.png' %}" height="250" alt=""></a>
+            <a href="." class="navbar-brand navbar-brand-autodark"><img src="../static/logo.png" height="250" alt=""></a>
           </div>
           <h2 class="h3 text-center mb-3">
             Login to your account
@@ -33,4 +31,3 @@
       </div>
     </div>
   {% endblock %}
-    

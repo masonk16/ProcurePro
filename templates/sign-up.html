@@ -1,28 +1,26 @@
 {% extends 'base.html' %}
 {% load static %}
-
-<body  class=" border-top-wide border-primary d-flex flex-column">
-{% block content %}
-{% load crispy_forms_tags %}
-  <div class="page page-center">
-    <div class="container-tight py-2">
-      <div class="text-center">
-        <a href="." class="navbar-brand navbar-brand-autodark"><img src="../static/logo.png" height="250" alt=""></a>
-      </div>
-      <form class="card card-md" action="." method="POST">
-        <div class="card-body">
-          <h2 class="card-title text-center mb-4">Create new account</h2>
-          {% csrf_token %}
-          {{ register_form|crispy }}
-          <div class="form-footer">
-            <button type="submit" class="btn btn-primary w-100">Create new account</button>
-          </div>
+  <body  class=" border-top-wide border-primary d-flex flex-column">
+  {% block content %}
+  {% load crispy_forms_tags %}
+    <div class="page page-center">
+      <div class="container-tight py-2">
+        <div class="text-center">
+          <a href="." class="navbar-brand navbar-brand-autodark"><img src="../static/logo.png" height="250" alt=""></a>
         </div>
-      </form>
-      <div class="text-center text-muted mt-3">
-        Already have account? <a href="/login/" tabindex="-1">Sign in</a>
+        <form class="card card-md" action="." method="POST">
+          <div class="card-body">
+            <h2 class="card-title text-center mb-4">Create new account</h2>
+            {% csrf_token %}
+            {{ register_form|crispy }}
+            <div class="form-footer">
+              <button type="submit" class="btn btn-primary w-100">Create new account</button>
+            </div>
+          </div>
+        </form>
+        <div class="text-center text-muted mt-3">
+          Already have account? <a href="/login/" tabindex="-1">Sign in</a>
+        </div>
       </div>
     </div>
-  </div>
-{% endblock %}
-    
+  {% endblock %}

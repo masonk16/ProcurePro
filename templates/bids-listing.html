@@ -1,0 +1,58 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+{% load rest_framework %}
+      <div class="page-wrapper">
+
+        <div class="container-xl">
+          <!-- Page title -->
+          <div class="page-header d-print-none">
+            <div class="row align-items-center">
+              <div class="col">
+                <h2 class="page-title">
+                  {{ user.company_name }} Bids
+                </h2>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="page-body">
+          <div class="container-xl">
+            <div class="col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">Bids</h3>
+                  </div>
+                  
+                  <div class="table-responsive">
+                    <table class="table card-table table-vcenter text-nowrap datatable">
+                      <thead>
+                        <tr>
+                          <th>Bid ID</th>
+                          <th>Tender id</th>
+                          <th>Placed On</th>
+                          <th>Bid Price</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for bid in bids %}
+                        <tr>
+                          <td><span class="text-muted">{{ bid.id }}</span></td>
+                          <td>{{ bid.tender_id }}</td>
+                          <td>{{ bid.submission_date.date }}</td>
+                          <td>{{ bid.bid_price }}</td>
+                          <td class="text-end">
+                              <a href="{% url 'main:bid-detail' bid.id %}" class="btn btn-primary">View</a>
+                          </td>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+          {% endblock %}

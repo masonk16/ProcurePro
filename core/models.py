@@ -65,6 +65,9 @@ class User(AbstractUser):
     def get_user_type_label(self):
         return UserType(self.type).name.title()
 
+    def get_id(self):
+        return str(self.id)
+
     def __str__(self):
         return self.email
 
