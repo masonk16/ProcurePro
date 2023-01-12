@@ -138,11 +138,13 @@ class Contractor(models.Model):
 class Tender(models.Model):
     id = models.AutoField(primary_key=True)
     category = models.CharField(max_length=200, null=True)
-    description = models.TextField(null=True)
+    notice_number = models.CharField(max_length=200, null=True)
+    tender_name = models.CharField(max_length=200, null=True)
+    requirement_details = models.TextField(null=True)
     budget = models.IntegerField(null=True)
     deadline = models.DateTimeField(null=True)
     opening_date = models.DateTimeField(verbose_name='opening_date', auto_now_add=True)
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='tenders', on_delete=models.CASCADE)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, default=None, null=True, related_name='tenders', on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.id)
@@ -154,8 +156,8 @@ class Bids(models.Model):
     description = models.TextField(max_length=200, null=True)
     bid_price = models.IntegerField(null=True)
     submission_date = models.DateTimeField(verbose_name='submission_date', auto_now_add=True)
-    tender_id = models.ForeignKey(Tender, on_delete=models.CASCADE)
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='bids', on_delete=models.CASCADE)
+    tender_id = models.ForeignKey(Tender, default=None, related_name='bids', null=True, on_delete=models.CASCADE)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='bids', default=None, null=True,  on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.id)
