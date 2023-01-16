@@ -3,13 +3,12 @@ from django.contrib.auth.models import AbstractUser
 from django.conf import settings
 from django.contrib.auth.base_user import BaseUserManager
 from django.utils.translation import gettext_lazy as _
-from .utils import UserType
 
 
 class UserManager(BaseUserManager):
     """
     Custom user model manager where email is the unique identifiers
-    for authentication instead of usernames.
+    for authentication instead of username.
     """
     def _create_user(self, email, password, **extra_fields):
         """
@@ -44,6 +43,9 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractUser):
+    """
+    Custom User model to handle user data with email used as username and first name and last name fields removed.
+    """
     username = None
     first_name = None
     last_name = None
@@ -61,9 +63,6 @@ class User(AbstractUser):
     REQUIRED_FIELDS = ['company_name', 'address', 'industry', 'phone_number', 'website', 'user_type']
 
     objects = UserManager()
-
-    def get_user_type_label(self):
-        return UserType(self.type).name.title()
 
     def get_id(self):
         return str(self.id)
@@ -90,6 +89,9 @@ class Contractor(models.Model):
 
 
 class Tender(models.Model):
+    """
+    Model for handling Tender data.
+    """
     CATEGORY_CHOICES = (
         ('Advertising', 'Advertising'),
         ('Agriculture', 'Agriculture'),
@@ -129,6 +131,9 @@ class Tender(models.Model):
 
 
 class Bids(models.Model):
+    """
+    Model for handling Bid data.
+    """
     description = models.TextField(null=True)
     bid_price = models.IntegerField(null=True)
     submission_date = models.DateTimeField(verbose_name='submission_date', auto_now_add=True)

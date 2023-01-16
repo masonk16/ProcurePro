@@ -7,7 +7,9 @@ User = get_user_model()
 
 
 class NewUserForm(UserCreationForm):
-
+    """
+    Custom form to handle user registration using the Custom User Model.
+    """
     CATEGORY_CHOICES = (
         ('Advertising', 'Advertising'),
         ('Agriculture', 'Agriculture'),

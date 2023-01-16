@@ -17,10 +17,14 @@ from .forms import NewUserForm
 from django.contrib.auth.forms import AuthenticationForm
 
 
+# Get the Custom User model
 User = get_user_model()
 
 
 def index(request):
+    """
+    View to return the landing page.
+    """
     return render(request=request, template_name="landing-page.html")
 
 
@@ -37,6 +41,9 @@ def blog_three(request):
 
 
 def register_user(request):
+    """
+    View to handle User registration with the custom user form.
+    """
     if request.method == "POST":
         form = NewUserForm(request.POST)
         if form.is_valid():
@@ -54,6 +61,9 @@ def register_user(request):
 
 
 def user_login(request):
+    """
+    View to handle user authentication (login) using the built-in Authentication Form.
+    """
     if request.method == "POST":
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
@@ -73,6 +83,9 @@ def user_login(request):
 
 
 def user_logout(request):
+    """
+    View to handle logout route.
+    """
     logout(request)
     messages.info(request, "You have successfully logged out.")
     return redirect("main:index")
@@ -89,7 +102,7 @@ def api_root(request, format=None):
 
 class UserList(LoginRequiredMixin, generics.ListAPIView):
     """
-    Lists all users.
+    View to list all users.
     """
     login_url = '/login/'
     redirect_field_name = 'login'
@@ -100,12 +113,15 @@ class UserList(LoginRequiredMixin, generics.ListAPIView):
     template_name = 'users.html'
 
     def get(self, request, *args, **kwargs):
+        """
+        Gets a list of all the Users saved in the Users table.
+        """
         return Response({'users': User.objects.all()})
 
 
 class UserDetail(LoginRequiredMixin, generics.RetrieveAPIView):
     """
-    Gets individual user details.
+    View to get individual user details.
     """
     login_url = '/login/'
     redirect_field_name = 'login'
@@ -120,23 +136,37 @@ class UserDetail(LoginRequiredMixin, generics.RetrieveAPIView):
         self.object = None
 
     def get(self, request, *args, **kwargs):
+        """
+        Get user details using the primary key (pk) passed as a parameter.
+        """
         self.object = self.get_object()
         return Response({'user': self.object})
 
 
-class CreateTender(views.APIView):
+class CreateTender(LoginRequiredMixin, views.APIView):
+    """
+    View to handle Tender creation.
+    """
+    login_url = '/login/'
+    redirect_field_name = 'login'
+
     queryset = Tender.objects.all()
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'empty.html'
+    template_name = 'tender.html'
 
     def get(self, request, format=None):
-
+        """
+        Renders form for Tender creation using the Tender Serializer.
+        """
         serializer = TenderSerializer()
         return Response({'serializer': serializer})
 
     def post(self, request, format=None):
-
+        """
+        Saves the Tender to the Tender model using the Tender Serializer.
+        """
+        # Data dictionary to pass to the serializer.
         category = request.data['category']
         notice_number = request.data['notice_number']
         tender_name = request.data['tender_name']
@@ -152,7 +182,6 @@ class CreateTender(views.APIView):
             'deadline': deadline,
         }
         serializer = TenderSerializer(data=data)
-        print(serializer)
         if serializer.is_valid():
             serializer.save(owner=self.request.user)
             return redirect('/tender/')
@@ -160,7 +189,10 @@ class CreateTender(views.APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class UserTenderList(generics.ListAPIView):
+class UserTenderList(LoginRequiredMixin, generics.ListAPIView):
+    """
+    View to display list of all Tenders created by the currently authenticated user.
+    """
     login_url = '/login/'
     redirect_field_name = 'login'
 
@@ -172,15 +204,17 @@ class UserTenderList(generics.ListAPIView):
 
     def get(self, owner):
         """
-        This view should return a list of all the Tenders for the currently authenticated user.
+        Returns a list of all the Tenders for the currently authenticated user.
         """
         user = self.request.user
-        print(user)
         tenders = Tender.objects.filter(owner=user)
         return Response({'tenders': tenders})
 
 
-class TenderList(generics.ListAPIView):
+class TenderList(LoginRequiredMixin, generics.ListAPIView):
+    """
+    View to display a list of all Tenders created by all users.
+    """
     login_url = '/login/'
     redirect_field_name = 'login'
 
@@ -188,12 +222,19 @@ class TenderList(generics.ListAPIView):
     renderer_classes = [TemplateHTMLRenderer]
     serializer = TenderSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    template_name = 'tenders-listing.html'
 
     def get(self, request, *args, **kwargs):
-        return Response({'tenders': Tender.objects.all()}, template_name='tenders-listing.html')
+        """
+        Returns a list of all the Tenders created by all users.
+        """
+        return Response({'tenders': Tender.objects.all()})
 
 
 class TenderDetail(LoginRequiredMixin, generics.ListCreateAPIView):
+    """
+    View to display details/information for a single Tender.
+    """
     login_url = '/login/'
     redirect_field_name = 'login'
 
@@ -201,13 +242,21 @@ class TenderDetail(LoginRequiredMixin, generics.ListCreateAPIView):
     renderer_classes = [TemplateHTMLRenderer]
     serializer_class = TenderSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    template_name = 'tender-details.html'
 
     def get(self, request, pk, *args, **kwargs):
+        """
+        Returns details for a single Tender.
+        :param pk: ID for the Tender to be returned.
+        """
         tender = Tender.objects.filter(id=pk)
-        return Response({'tender': tender}, template_name='tender-details.html')
+        return Response({'tender': tender})
 
 
 class UserTenderDetail(LoginRequiredMixin, generics.ListCreateAPIView):
+    """
+    View to display details for a specific Tender craeted by the currently authenticated user including Bids placed by Suppliers.
+    """
     login_url = '/login/'
     redirect_field_name = 'login'
 
@@ -215,26 +264,44 @@ class UserTenderDetail(LoginRequiredMixin, generics.ListCreateAPIView):
     renderer_classes = [TemplateHTMLRenderer]
     serializer_class = TenderSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    template_name = 'user-tender-details.html'
 
     def get(self, request, pk, *args, **kwargs):
+        """
+        Get tender details using the primary key (pk) passed as a parameter.
+        :param pk: ID for Tender information to be returned.
+        :return: Tender details including Bids placed for that specific Tender.
+        """
         tenders = Tender.objects.filter(id=pk)
         bids = Bids.objects.filter(tender_id=pk)
-        return Response({'tenders': tenders, 'bids': bids}, template_name='user-tender-details.html')
+        return Response({'tenders': tenders, 'bids': bids})
 
 
-class CreateBid(views.APIView):
-    # serializer_class = BidSerializer
+class CreateBid(LoginRequiredMixin, views.APIView):
+    """
+    View to handle Bid creation.
+    """
+    login_url = '/login/'
+    redirect_field_name = 'login'
+
+    serializer_class = BidSerializer
     queryset = Bids.objects.all()
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'bidding.html'
 
     def get(self, request, format=None):
-
+        """
+        Renders form for Bid creation using the Bid Serializer.
+        """
         serializer = BidSerializer()
         return Response({'serializer': serializer})
 
     def post(self, request, format=None):
+        """
+        Saves the Bid to the Tender model using the Bid Serializer.
+        """
+        # Data dictionary to pass to the serializer.
         description = request.data['description']
         bid_price = request.data['bid_price']
         tender_id = request.data['tender_id']
@@ -244,7 +311,6 @@ class CreateBid(views.APIView):
             'tender_id': tender_id
         }
         serializer = BidSerializer(data=data)
-        print(serializer)
         if serializer.is_valid():
             serializer.save(owner=self.request.user)
             return redirect('/user/bids/')
@@ -252,7 +318,10 @@ class CreateBid(views.APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class UserBidsList(generics.ListAPIView):
+class UserBidsList(LoginRequiredMixin, generics.ListAPIView):
+    """
+    View to display a list of all Bids created by the currently authenticated user.
+    """
     login_url = '/login/'
     redirect_field_name = 'login'
 
@@ -265,30 +334,17 @@ class UserBidsList(generics.ListAPIView):
     def get(self, owner):
         """
         This view should return a list of all the Tenders for the currently authenticated user.
+        :param owner: Email of currently authenticated user.
         """
         user = self.request.user
-        print(user)
         bids = Bids.objects.filter(owner=user)
         return Response({'bids': bids})
 
 
-# class BidList(LoginRequiredMixin, generics.ListCreateAPIView):
-#     login_url = '/login/'
-#     redirect_field_name = 'login'
-#
-#     queryset = Bids.objects.all()
-#     renderer_classes = [TemplateHTMLRenderer]
-#     serializer_class = BidSerializer
-#     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-#
-#     def perform_create(self, serializer):
-#         serializer.save(owner=self.request.user)
-#
-#     def get(self, request, *args, **kwargs):
-#         return Response({'bids': Bids.objects.all()}, template_name='bids-listing.html')
-
-
 class BidDetail(LoginRequiredMixin, generics.RetrieveUpdateDestroyAPIView):
+    """
+    View to display details for a specific Bid.
+    """
     login_url = '/login/'
     redirect_field_name = 'login'
 
@@ -299,5 +355,10 @@ class BidDetail(LoginRequiredMixin, generics.RetrieveUpdateDestroyAPIView):
                           IsOwnerOrReadOnly]
 
     def get(self, request, pk, *args, **kwargs):
+        """
+        Get bid details using the primary key (pk) passed as a parameter.
+        :param pk: ID for Bid information to be returned.
+        :return: Bid details.
+        """
         bids = Bids.objects.filter(id=pk)
         return Response({'bids': bids}, template_name='bid-details.html')

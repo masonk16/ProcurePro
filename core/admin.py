@@ -5,6 +5,9 @@ from core.models import *
 
 @admin.register(User)
 class CustomUserAdmin(UserAdmin):
+    """
+    Custom User Admin to handle user creation in line with the custom User model.
+    """
     model = User
     list_display = ('email', 'company_name', 'is_staff', 'is_active',)
     list_filter = ('email', 'is_staff', 'is_active',)
