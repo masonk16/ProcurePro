@@ -184,7 +184,7 @@ class CreateTender(LoginRequiredMixin, views.APIView):
         serializer = TenderSerializer(data=data)
         if serializer.is_valid():
             serializer.save(owner=self.request.user)
-            return redirect('/tender/')
+            return redirect('/tenders/')
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
