@@ -23,7 +23,7 @@
                     <h3 class="card-title">Tenders</h3>
                   </div>
                   <div class="table-responsive">
-                    {% for tender in tenders %}
+
                     <table class="table card-table table-vcenter text-nowrap datatable">
                       <thead>
                         <tr>
@@ -39,6 +39,7 @@
                         </tr>
                       </thead>
                       <tbody>
+                      {% for tender in tenders %}
                         <tr>
                           <td><input class="form-check-input m-0 align-middle" type="checkbox" aria-label="Select invoice"></td>
                           <td><span class="text-muted">{{ tender.id }}</span></td>
@@ -60,9 +61,9 @@
                               <a href="{% url 'main:tender-detail' tender.id %}" class="btn btn-primary">View</a>
                           </td>
                         </tr>
+                      {% endfor %}
                       </tbody>
                     </table>
-                    {% endfor %}
                   </div>
                 </div>
               </div>
