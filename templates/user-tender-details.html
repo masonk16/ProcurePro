@@ -1,119 +1,134 @@
-{% extends 'main.html' %}
-{% load static %}
+{% extends 'main.html' %} {% load static %}
 
-  <body>
-    <script src="./dist/js/demo-theme.min.js?1668288743"></script>
-    <div class="page">
-      <!-- Navbar -->
-      {% block content %}
-      {% load rest_framework %}
-      {% for tender in tenders %}
-      <div class="page-wrapper">
-        <!-- Page header -->
-        <div class="page-header d-print-none">
-          <div class="container-xl">
-            <div class="row g-2 align-items-center">
-              <div class="col">
-                <h2 class="page-title">
-                  {{ tender.tender_name }}
-                </h2>
-              </div>
+<body>
+  <script src="./dist/js/demo-theme.min.js?1668288743"></script>
+  <div class="page">
+    <!-- Navbar -->
+    {% block content %} {% load rest_framework %} {% for tender in tenders %}
+    <div class="page-wrapper">
+      <!-- Page header -->
+      <div class="page-header d-print-none">
+        <div class="container-xl">
+          <div class="row g-2 align-items-center">
+            <div class="col">
+              <h2 class="page-title">{{ tender.tender_name }}</h2>
             </div>
           </div>
         </div>
-        <!-- Page body -->
-        <div class="page-body">
-          <div class="container-xl">
-            <div class="row row-cards">
-              <div class="col-lg-8">
-                <div class="card card-lg">
-                  <div class="card-body">
-                    <div class="markdown">
-                      <h3 id="tabler-free-license">Requirement Details</h3>
-                      <p>{{ tender.requirement_details }}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-4">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="d-flex align-items-center mb-3">
-                      <div class="me-3">
-                        <img src="/icons/tenders.svg">
-                      </div>
-                      <div>
-                        <small class="text-muted">Tender ID</small>
-                        <h3 class="lh-1">{{ tender.id }}</h3>
-                      </div>
-                    </div>
-                    <h4>Budget:</h4>
-                    <ul class="list-unstyled space-y-1">
-                      <li>${{ tender.budget }}</li>
-                    </ul>
-                    <h4>Opening Day:</h4>
-                    <ul class="list-unstyled space-y-1">
-                      <li>{{ tender.opening_date.date }}</li>
-                    </ul>
-                    <h4>Submission Deadline:</h4>
-                    <ul class="list-unstyled space-y-1">
-                      <li>{{ tender.deadline.date }}</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="container-xl">
-            <div class="mt-3 row row-cards">
-          <div class="col-12">
-                <div class="card">
-                  <div class="card-header">
-                    <h3 class="card-title">Bids</h3>
-                  </div>
-                  <div class="table-responsive">
-                    <table class="table card-table table-vcenter text-nowrap datatable">
-                      <thead>
-                        <tr>
-                          <th class="w-1"><input class="form-check-input m-0 align-middle" type="checkbox" aria-label="Select all invoices"></th>
-                          <th class="w-1">Bid ID
-                          </th>
-                          <th>Bidder</th>
-                          <th>Bid Price</th>
-                          <th>Placed On</th>
-                          <th></th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                      {% for bid in bids %}
-                        <tr>
-                          <td><input class="form-check-input m-0 align-middle" type="checkbox" aria-label="Select invoice"></td>
-                          <td><a href="{% url 'main:bid-detail' bid.id %}" class="text-reset" tabindex="-1">{{ bid.id }}</a></td>
-                          <td>
-                            {{ bid.owner }}
-                          </td>
-                          <td>
-                            {{ bid.bid_price }}
-                          </td>
-                          <td>
-                            {{ bid.submission_date }}
-                          </td>
-                          <td class="text-end">
-                            <span class="dropdown">
-                              <button class="btn align-text-top" data-bs-boundary="viewport" data-bs-toggle="dropdown">View</button>
-                            </span>
-                          </td>
-                        </tr>
-                      {% endfor %}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-          </div>
-                </div>
-              </div>
-        </div>
-        {% endfor %}
-        {% endblock %}
       </div>
+      <!-- Page body -->
+      <div class="page-body">
+        <div class="container-xl">
+          <div class="row row-cards">
+            <div class="col-lg-8">
+              <div class="card card-lg">
+                <div class="card-body">
+                  <div class="markdown">
+                    <h3 id="tabler-free-license">Requirement Details</h3>
+                    <p>{{ tender.requirement_details }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex align-items-center mb-3">
+                    <div class="me-3">
+                      <img src="/icons/tenders.svg" />
+                    </div>
+                    <div>
+                      <small class="text-muted">Tender ID</small>
+                      <h3 class="lh-1">{{ tender.id }}</h3>
+                    </div>
+                  </div>
+                  <h4>Budget:</h4>
+                  <ul class="list-unstyled space-y-1">
+                    <li>${{ tender.budget }}</li>
+                  </ul>
+                  <h4>Opening Day:</h4>
+                  <ul class="list-unstyled space-y-1">
+                    <li>{{ tender.opening_date.date }}</li>
+                  </ul>
+                  <h4>Submission Deadline:</h4>
+                  <ul class="list-unstyled space-y-1">
+                    <li>{{ tender.deadline.date }}</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container-xl">
+          <div class="mt-3 row row-cards">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title">Bids</h3>
+                </div>
+                <div class="table-responsive">
+                  <table
+                    class="table card-table table-vcenter text-nowrap datatable"
+                  >
+                    <thead>
+                      <tr>
+                        <th class="w-1">
+                          <input
+                            class="form-check-input m-0 align-middle"
+                            type="checkbox"
+                            aria-label="Select all invoices"
+                          />
+                        </th>
+                        <th class="w-1">Bid ID</th>
+                        <th>Bidder</th>
+                        <th>Bid Price</th>
+                        <th>Placed On</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for bid in bids %}
+                      <tr>
+                        <td>
+                          <input
+                            class="form-check-input m-0 align-middle"
+                            type="checkbox"
+                            aria-label="Select invoice"
+                          />
+                        </td>
+                        <td>
+                          <a
+                            href="{% url 'main:bid-detail' bid.id %}"
+                            class="text-reset"
+                            tabindex="-1"
+                            >{{ bid.id }}</a
+                          >
+                        </td>
+                        <td>{{ bid.owner }}</td>
+                        <td>{{ bid.bid_price }}</td>
+                        <td>{{ bid.submission_date }}</td>
+                        <td class="text-end">
+                          <span class="dropdown">
+                            <button
+                              class="btn align-text-top"
+                              data-bs-boundary="viewport"
+                              data-bs-toggle="dropdown"
+                            >
+                              View
+                            </button>
+                          </span>
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %} {% endblock %}
     </div>
+  </div>
+</body>

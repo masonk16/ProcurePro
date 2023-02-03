@@ -1,72 +1,72 @@
-{% extends 'main.html' %}
 {% load static %}
-  <body >
-    <div class="page">
-      <!-- Navbar -->
-      {% block content %}
-      {% load rest_framework %}
-      {% for bid in bids %}
-      <div class="page-wrapper">
-        <!-- Page header -->
-        <div class="page-header d-print-none">
-          <div class="container-xl">
-            <div class="row g-2 align-items-center">
-              <div class="col">
-                <h2 class="page-title">
-                  {{ bid.id }}
-                </h2>
-              </div>
+{% extends 'main.html' %}
+<body>
+  <div class="page">
+    <!-- Navbar -->
+    {% block content %}
+        {% load rest_framework %}
+        {% for bid in bids %}
+    <div class="page-wrapper">
+      <!-- Page header -->
+      <div class="page-header d-print-none">
+        <div class="container-xl">
+          <div class="row g-2 align-items-center">
+            <div class="col">
+              <h2 class="page-title">{{ bid.id }}</h2>
             </div>
           </div>
         </div>
-        <!-- Page body -->
-        <div class="page-body">
-          <div class="container-xl">
-            <div class="row row-cards">
-              <div class="col-lg-8">
-                <div class="card card-lg">
-                  <div class="card-body">
-                    <div class="markdown">
-                      <h3 id="tabler-free-license">Bid Details</h3>
-                      <p>{{ bid.description }}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-4">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="d-flex align-items-center mb-3">
-                      <div class="me-3">
-                        <img width="35px" src="/static/document.png">
-                      </div>
-                      <div>
-                        <small class="text-muted">Bid ID</small>
-                        <h3 class="lh-1">{{ bid.id }}</h3>
-                      </div>
-                    </div>
-                    <h4>Bid Price:</h4>
-                    <ul class="list-unstyled space-y-1">
-                      <li>${{ bid.bid_price }}</li>
-                    </ul>
-                    <h4>Placed On:</h4>
-                    <ul class="list-unstyled space-y-1">
-                      <li>{{ bid.owner.id }}</li>
-                    </ul>
-                  </div>
-                  <div class="card-footer">
-                    {% if user.user_type == "Contractors" %}
-                    <a href="/bids/create/" class="btn btn-primary">Contact Supplier</a>
-                    {% else %}
-                    <a href="/tenders/">Apply for more tenders</a>
-                    {% endif %}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        {% endfor %}
-        {% endblock %}
       </div>
+      <!-- Page body -->
+      <div class="page-body">
+        <div class="container-xl">
+          <div class="row row-cards">
+            <div class="col-lg-8">
+              <div class="card card-lg">
+                <div class="card-body">
+                  <div class="markdown">
+                    <h3 id="tabler-free-license">Bid Details</h3>
+                    <p>{{ bid.description }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex align-items-center mb-3">
+                    <div class="me-3">
+                      <img width="35px" src="/static/document.png" />
+                    </div>
+                    <div>
+                      <small class="text-muted">Bid ID</small>
+                      <h3 class="lh-1">{{ bid.id }}</h3>
+                    </div>
+                  </div>
+                  <h4>Bid Price:</h4>
+                  <ul class="list-unstyled space-y-1">
+                    <li>${{ bid.bid_price }}</li>
+                  </ul>
+                  <h4>Placed On:</h4>
+                  <ul class="list-unstyled space-y-1">
+                    <li>{{ bid.owner.id }}</li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  {% if user.user_type == "Contractors" %}
+                  <a href="/bids/create/" class="btn btn-primary"
+                    >Contact Supplier</a>
+                  {% else %}
+                  <a href="/tenders/">Apply for more tenders</a>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    {% endblock %}
     </div>
+  </div>
+</body>

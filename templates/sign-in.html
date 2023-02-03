@@ -1,33 +1,36 @@
-{% extends 'base.html' %}
-{% load static %}
-  <body  class=" d-flex flex-column bg-white">
-  {% block content %}
-  {% load crispy_forms_tags %}
-    <script src="../static/js/demo-theme.min.js?1668288743"></script>
-    <div class="row g-0 flex-fill">
-      <div class="col-12 col-lg-6 col-xl-4 border-top-wide border-primary d-flex flex-column justify-content-center">
-        <div class="container container-tight my-5 px-lg-5">
-          <div class="text-center">
-            <a href="." class="navbar-brand navbar-brand-autodark"><img src="../static/logo.png" height="250" alt=""></a>
+{% extends 'base.html' %} {% load static %}
+<body class="d-flex flex-column bg-white">
+  {% block content %} {% load crispy_forms_tags %}
+  <script src="../static/js/demo-theme.min.js?1668288743"></script>
+  <div class="row g-0 flex-fill">
+    <div
+      class="col-12 col-lg-6 col-xl-4 border-top-wide border-primary d-flex flex-column justify-content-center"
+    >
+      <div class="container container-tight my-5 px-lg-5">
+        <div class="text-center">
+          <a href="." class="navbar-brand navbar-brand-autodark"
+            ><img src="../static/logo.png" height="250" alt=""
+          /></a>
+        </div>
+        <h2 class="h3 text-center mb-3">Login to your account</h2>
+        <form action="." method="POST" autocomplete="off" novalidate>
+          {% csrf_token %} {{ login_form|crispy }}
+          <div class="form-footer">
+            <button type="submit" class="btn btn-primary w-100">Sign in</button>
           </div>
-          <h2 class="h3 text-center mb-3">
-            Login to your account
-          </h2>
-          <form action="." method="POST" autocomplete="off" novalidate>
-            {% csrf_token %}
-            {{ login_form|crispy }}
-            <div class="form-footer">
-              <button type="submit" class="btn btn-primary w-100">Sign in</button>
-            </div>
-          </form>
-          <div class="text-center text-muted mt-3">
-            Don't have account yet? <a href="/register/" tabindex="-1">Sign up</a>
-          </div>
+        </form>
+        <div class="text-center text-muted mt-3">
+          Don't have account yet? <a href="/register/" tabindex="-1">Sign up</a>
         </div>
       </div>
-      <div class="col-12 col-lg-6 col-xl-8 d-none d-lg-block">
-        <!-- Photo -->
-        <div class="bg-cover h-100 min-vh-100" style="background-image: url(../static/photos/sign-in.jpg)"></div>
-      </div>
     </div>
+    <div class="col-12 col-lg-6 col-xl-8 d-none d-lg-block">
+      <!-- Photo -->
+      <div
+        class="bg-cover h-100 min-vh-100"
+        style="background-image: url(../static/photos/sign-in.jpg)"
+      ></div>
+    </div>
+  </div>
   {% endblock %}
+</body>

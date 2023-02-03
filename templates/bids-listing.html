@@ -1,58 +1,97 @@
-{% extends 'main.html' %}
-{% load static %}
-{% block content %}
-{% load rest_framework %}
-      <div class="page-wrapper">
+{% extends 'main.html' %} {% load static %} {% block content %} {% load rest_framework %}
+<div class="page-wrapper">
+  <div class="container-xl">
+    <!-- Page title -->
+    <div class="page-header d-print-none">
+      <div class="row align-items-center">
+        <div class="col">
+          <h2 class="page-title">{{ user.company_name }} Bids</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+{% if bids %}
+  <div class="page-body">
+    <div class="container-xl">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Bids</h3>
+          </div>
 
-        <div class="container-xl">
-          <!-- Page title -->
-          <div class="page-header d-print-none">
-            <div class="row align-items-center">
-              <div class="col">
-                <h2 class="page-title">
-                  {{ user.company_name }} Bids
-                </h2>
+          <div class="table-responsive">
+            <table class="table card-table table-vcenter text-nowrap datatable">
+              <thead>
+                <tr>
+                  <th>Bid ID</th>
+                  <th>Tender id</th>
+                  <th>Placed On</th>
+                  <th>Bid Price</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for bid in bids %}
+                <tr>
+                  <td><span class="text-muted">{{ bid.id }}</span></td>
+                  <td>{{ bid.tender_id }}</td>
+                  <td>{{ bid.submission_date.date }}</td>
+                  <td>{{ bid.bid_price }}</td>
+                  <td class="text-end">
+                    <a
+                      href="{% url 'main:bid-detail' bid.id %}"
+                      class="btn btn-primary"
+                      >View</a
+                    >
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    {% else %}
+          <div class="page-body">
+          <div class="container-xl d-flex flex-column justify-content-center">
+            <div class="empty">
+              <div class="empty-img"><img src="./static/illustrations/undraw_printing_invoices_5r4r.svg" height="128"  alt="">
+              </div>
+              <p class="empty-title">No tenders found!</p>
+              <p class="empty-subtitle text-muted">
+                You have not created or posted any tenders yet.
+              </p>
+              <div class="empty-action">
+                <a href="./." class="btn btn-primary">
+                  <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
+                  <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>
+                  Create your first tender
+                </a>
               </div>
             </div>
           </div>
         </div>
-        <div class="page-body">
-          <div class="container-xl">
-            <div class="col-12">
-                <div class="card">
-                  <div class="card-header">
-                    <h3 class="card-title">Bids</h3>
-                  </div>
-                  
-                  <div class="table-responsive">
-                    <table class="table card-table table-vcenter text-nowrap datatable">
-                      <thead>
-                        <tr>
-                          <th>Bid ID</th>
-                          <th>Tender id</th>
-                          <th>Placed On</th>
-                          <th>Bid Price</th>
-                          <th></th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {% for bid in bids %}
-                        <tr>
-                          <td><span class="text-muted">{{ bid.id }}</span></td>
-                          <td>{{ bid.tender_id }}</td>
-                          <td>{{ bid.submission_date.date }}</td>
-                          <td>{{ bid.bid_price }}</td>
-                          <td class="text-end">
-                              <a href="{% url 'main:bid-detail' bid.id %}" class="btn btn-primary">View</a>
-                          </td>
-                        </tr>
-                        {% endfor %}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
+<div class="page-body">
+          <div class="container-xl d-flex flex-column justify-content-center">
+            <div class="empty">
+              <div class="empty-img"><img src="{% static '/static/illustrations/undraw_printing_invoices_5r4r.svg' %}" height="128"  alt="">
               </div>
+              <p class="empty-title">No bids found!</p>
+              <p class="empty-subtitle text-muted">
+                You have not placed any bids yet.
+              </p>
+              <div class="empty-action">
+                <a href="./." class="btn btn-primary">
+                  <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
+                  <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>
+                  Check out some tenders
+                </a>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-          {% endblock %}
+{% endif %}
+</div>
+{% endblock %}
