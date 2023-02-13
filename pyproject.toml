@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "procurepro"
+version = "0.1.0"
+description = "ProcurePro - tender management system"
+authors = ["Mason Mapfundematsva <masomapfunde@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+django = "^4.1.6"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
