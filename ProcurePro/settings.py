@@ -92,12 +92,10 @@ WSGI_APPLICATION = 'ProcurePro.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'default': dj_database_url.config(
-            default='postgresql://postgres:postgres@localhost:5432/procurepro',
-            conn_max_age=600
-        )
-    }
+    'default': dj_database_url.config(
+        default='postgresql://postgres:postgres@localhost:5432/procurepro',
+        conn_max_age=600
+    )
 }
 
 
